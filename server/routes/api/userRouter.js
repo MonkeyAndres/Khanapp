@@ -5,6 +5,13 @@ const router = express.Router();
 
 const User = require('../../models/User');
 
+router.get('/:username', (req, res, next) => {
+    User.findOne({username: req.params.username})
+    .then(user => {
+        res.status(200).json(user);
+    })
+    .catch(err => next(err));
+})
 
 router.post('/', (req, res, next) => {
     const { username, password, email } = req.body;
@@ -22,6 +29,7 @@ router.post('/', (req, res, next) => {
     .then(user => {
         res.status(200).json(user);
     })
+    .catch(err => next(err));
 });
 
 router.put('/:id', (req, res, next) => {
@@ -35,6 +43,7 @@ router.put('/:id', (req, res, next) => {
     .then(user => {
         res.status(200).json(user);
     })
+    .catch(err => next(err));
 })
 
 router.delete('/:id', (req, res, next) => {

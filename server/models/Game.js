@@ -8,7 +8,7 @@ const gameSchema = new Schema({
     title: {type: String, required: true, unique: true},
     description: String,
     difficulty: Number,
-    
+    date: Date,
     // gameArea: {
     //     type: {
     //         type: String,

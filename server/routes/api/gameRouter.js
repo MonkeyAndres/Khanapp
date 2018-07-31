@@ -1,17 +1,19 @@
 const express = require('express');
-const bcrypt = require('bcrypt');
 const _ = require('lodash');
 const router = express.Router();
 
 const Game = require('../../models/Game');
+const User = require('../../models/User');
 const Challenges = require('../../models/Challenge');
 
-const pickRandonChallenges = n => {
+const pickRandonChallenges = difficulty => {
     return new Promise((resolve, reject) => {
-        Challenges.find().lean()
+        Challenges.find({difficulty}).lean()
         .then(challenges => {
-            let shuffledChallenges = _.shuffle()
-            resolve(_.take(shuffledChallenges, n));
+            let shuffledChallenges = _.shuffle(challenges)
+            let selectedChallenges = _.take(shuffledChallenges, difficulty*3);
+
+            resolve(_.map(selectedChallenges, '_id'))
         })
         .catch(err => reject(err));
     }
@@ -24,28 +26,34 @@ router.get('/', (req, res, next) => {
 })
 
 router.post('/', (req, res, next) => {
-    let { title, description, difficulty, creator } = req.body;
+    let { title, description, difficulty, date, creator } = req.body;
 
-    pickRandonChallenges(difficulty*3).then(challenges => challenges = challenges);
+    pickRandonChallenges(difficulty)
+    .then(challenges => {
+        const newGame = new Game({
+            title,
+            description,
+            difficulty,
+            date,
+            challenges,
+            creator
+        });
 
-    const newGame = new Game({
-        title,
-        description,
-        difficulty,
-        challenges,
-        creator
-    });
-
-    newGame.save()
+        return newGame.save();
+    })
     .then(game => {
-        res.status(200).json(game);
+        User.findByIdAndUpdate(creator, {$push: {createdGames: game}})
+        .then(user => {
+            res.status(200).json(game);
+        })
+        .catch(err => next(err));
     })
     .catch(err => next(err));
 });
 
 router.put('/:id', (req, res, next) => {
     const gameId = req.params.id;
-    let { title, description, difficulty } = req.body;
+    let { title, description, difficulty, date } = req.body;
 
     let editedGame = { title, description, difficulty };
     editedGame = _.pickBy(editedGame, _.identity);
@@ -62,10 +70,21 @@ router.delete('/:id', (req, res, next) => {
 
     Game.findByIdAndRemove(gameId)
     .then(game => {
+        return User.findByIdAndUpdate(game.creator, {$pull: {createdGames: gameId}});
+    })
+    .then(user => {
         res.status(200).json({ message: "Game Deleted" });
     })
     .catch(err => next(err));
 })
 
+router.post('/:gameId/:playerId', (req, res, next) => {
+    const { gameId, playerId } = req.params;
+
+    Game.findByIdAndUpdate(gameId, {$push: {players: playerId}}, {new: true})
+    .then(game => { 
+        res.status(200).json({ message: "Player Added" });
+    })
+})
 
 module.exports = router;
