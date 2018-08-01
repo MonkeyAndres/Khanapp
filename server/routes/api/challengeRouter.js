@@ -6,8 +6,8 @@ const Game = require('../../models/Game');
 const User = require('../../models/User');
 const Challenge = require('../../models/Challenge');
 
-router.get('/', (req, res, next) => {
-    Challenge.find()
+router.get('/:title', (req, res, next) => {
+    Challenge.find({title: req.params.title})
     .then(challenges => res.status(200).json(challenges))
     .catch(err => next(err));
 })

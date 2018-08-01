@@ -25,6 +25,12 @@ router.get('/', (req, res, next) => {
     .catch(err => next(err));
 })
 
+router.get('/:title', (req, res, next) => {
+    Game.find({title: req.params.title})
+    .then(games => res.status(200).json(games))
+    .catch(err => next(err));
+})
+
 router.post('/', (req, res, next) => {
     let { title, description, difficulty, date, creator } = req.body;
 
