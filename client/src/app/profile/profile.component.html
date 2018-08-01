@@ -1,0 +1,56 @@
+<div *ngIf="auth.user">
+
+  <mat-toolbar color="primary">
+    <mat-toolbar-row>
+      <h1>My Profile</h1>
+      <span class="example-spacer"></span>
+      <mat-icon class="example-icon">home</mat-icon>
+    </mat-toolbar-row>
+  </mat-toolbar>
+
+  <mat-tab-group [color]="'primary'" [backgroundColor]="'primary'">
+    <mat-tab label="Profile">
+      <div class="img-container">
+        <img src="http://www.personalbrandingblog.com/wp-content/uploads/2017/08/blank-profile-picture-973460_640-300x300.png" alt="">
+      </div>
+
+      <h2 id="username">{{auth.user.username}}</h2>
+
+      <p id="bio">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Culpa officiis nihil eum tenetur veritatis minus ratione
+        non iure ipsum voluptatum id temporibus magni, possimus labore asperiores totam facere quidem similique.</p>
+
+      <button class="fab">
+        <mat-icon>edit</mat-icon>
+      </button>
+    </mat-tab>
+
+    <mat-tab label="Created Games">
+      <h3>Created Games</h3>
+
+      <mat-list>
+        <mat-list-item *ngFor="let game of auth.user.createdGames">
+          <mat-icon mat-list-icon>videogame_asset</mat-icon>
+          <h4 mat-line>{{game.title}}</h4>
+          <p mat-line> {{game.date | date}} </p>
+        </mat-list-item>
+      </mat-list>
+
+      <button class="fab">
+        <mat-icon>add</mat-icon>
+      </button>
+    </mat-tab>
+
+    <mat-tab label="Played Games">
+      <h3>Played Games</h3>
+
+      <mat-list>
+        <mat-list-item *ngFor="let game of playedGames">
+          <mat-icon mat-list-icon>videogame_asset</mat-icon>
+          <h4 mat-line>{{game.title}}</h4>
+          <p mat-line> {{game.date | date}} </p>
+        </mat-list-item>
+      </mat-list>
+    </mat-tab>
+  </mat-tab-group>
+
+</div>

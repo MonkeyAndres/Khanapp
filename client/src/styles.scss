@@ -1,5 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
 @import url('https://fonts.googleapis.com/css?family=Roboto:300,400');
+@import url("https://fonts.googleapis.com/icon?family=Material+Icons");
 
 *{
     margin: 0;
@@ -7,11 +8,13 @@
     border: 0;
     box-sizing: border-box;
     font-family: 'Roboto', sans-serif;
+    line-height: 1.5;
 }
 
 img{width: 100%}
 a{text-decoration: none; color: #ff4081}
 button{font-weight: bold; text-transform: uppercase}
+body{min-height: 100vh}
 
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
 
@@ -22,5 +25,12 @@ button{font-weight: bold; text-transform: uppercase}
 }
 
 .mat-tab-body-wrapper{
+    position: absolute !important;
+    top: 104px;
+    bottom: 0;
+    width: 100%; 
+}
+
+.mat-tab-body{
     padding: 1em;
 }

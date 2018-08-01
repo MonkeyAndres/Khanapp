@@ -28,6 +28,10 @@ export class GamesService implements CRUD {
     return this.http.get(`${this.BASEURL}/api/game/${title}`, this.options);
   }
 
+  getPlayedBy(username) {
+    return this.http.get(`${this.BASEURL}/api/game/played/${username}`, this.options);
+  }
+
   delete(id) {
     return this.http.delete(`${this.BASEURL}/api/game/${id}`, this.options);
   }

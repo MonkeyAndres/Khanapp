@@ -12,7 +12,7 @@ export interface User {
   providedIn: 'root'
 })
 export class AuthService {
-  user: User;
+  user: any;
   BASEURL: string = environment.BASEURL;
   options: object = {withCredentials: true};
 
