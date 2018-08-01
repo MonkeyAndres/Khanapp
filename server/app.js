@@ -10,6 +10,7 @@ const session = require('express-session');
 const MongoStore = require('connect-mongo')(session);
 const passport = require('passport');
 const configure = require('./config/passport.js');
+const cors = require('cors');
 
 const indexRouter = require('./routes/index');
 const apiRouter = require('./routes/api');
@@ -22,6 +23,7 @@ mongoose.connect(process.env.DBURL, {useNewUrlParser: true})
   console.log('Connected to MongoDB!');
 })
 
+
 // Sessions
 app.use(session({
   secret: "imasecret",
@@ -29,6 +31,21 @@ app.use(session({
   saveUninitialized: true,
   store: new MongoStore({ mongooseConnection: mongoose.connection })
 }));
+
+// CORS Stuff
+const whitelist = [
+  'http://localhost:4200',
+]
+
+const corsOptions = {
+  origin: (origin, cb) => {
+    var originIsWhiteListed = whitelist.indexOf(origin) !== -1;
+    cb(null, originIsWhiteListed);
+  },
+  credentials: true
+}
+
+app.use(cors(corsOptions))
 
 // Passport
 configure(passport);

@@ -1,0 +1,24 @@
+<div class="container">
+  <h1>Welcome to <br> Khanapp</h1>
+
+  <mat-card class="authForm">
+    <h2>{{operation}}</h2>
+
+    <form (ngSubmit)="onSubmit(authForm)" #authForm="ngForm">
+      <mat-form-field>
+        <input matInput placeholder="Username" [(ngModel)]="username" name="username" autocomplete="off">
+      </mat-form-field>
+
+      <mat-form-field *ngIf="operation == 'signup'">
+        <input matInput placeholder="Email" [(ngModel)]="email" name="email">
+      </mat-form-field>
+
+      <mat-form-field>
+        <input matInput placeholder="Password" [(ngModel)]="password" name="password" type="password">
+      </mat-form-field>
+
+      <span>{{message}} have an account? <a href="#" (click)="changeForm($event)">{{inverseOperation}}</a></span> <br><br>
+      <button mat-flat-button color="accent">{{operation}}</button>
+    </form>
+  </mat-card>
+</div>

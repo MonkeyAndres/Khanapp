@@ -1,0 +1,32 @@
+
+
+.container{
+    width: 100% !important;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: #3f51b5;
+
+    h1{color: #fafafa; font-weight: 300; text-align: center}
+}
+
+.authForm{
+    width: 95%;
+    margin: 2em 0;
+
+    h2{
+        margin-bottom: 0.5em;
+        text-transform: capitalize;
+        font-weight: normal;
+    }
+
+    a {
+        text-transform: capitalize;
+    }
+
+    mat-form-field{
+        display: block
+    }
+}

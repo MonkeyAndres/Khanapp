@@ -16,7 +16,9 @@ export class AuthService {
   BASEURL: string = environment.BASEURL;
   options: object = {withCredentials: true};
 
-  constructor(public http: HttpClient) { }
+  constructor(public http: HttpClient) {
+    this.isLogged().subscribe(() => console.log(this.user));
+  }
 
   login(user: User) {
     return this.http.post(`${this.BASEURL}/api/auth/login`, user, this.options).pipe(
@@ -25,13 +27,13 @@ export class AuthService {
   }
 
   signup(user: User) {
-    return this.http.post(`${this.BASEURL}/api/auth/signup`, user, this.options).pipe(
+    return this.http.post(`${this.BASEURL}/api/user`, user, this.options).pipe(
       tap((data: User) => this.user = data),
     );
   }
 
   isLogged() {
-    return this.http.post(`${this.BASEURL}/api/loggedin`, {}, this.options).pipe(
+    return this.http.post(`${this.BASEURL}/api/auth/loggedin`, {}, this.options).pipe(
       tap((data: User) => this.user = data),
     );
   }
