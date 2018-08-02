@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { User } from './../../services/auth.service';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-profile-info',
@@ -9,11 +10,9 @@ import { User } from './../../services/auth.service';
 export class InfoComponent implements OnInit {
 
   @Input() user: User;
-  @Input() editable: boolean;
 
   constructor() { }
 
   ngOnInit() {
   }
-
 }

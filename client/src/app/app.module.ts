@@ -14,6 +14,8 @@ import { CreatedGamesComponent } from './profile/created-games/created-games.com
 import { PlayedGamesComponent } from './profile/played-games/played-games.component';
 import { GameListComponent } from './profile/game-list/game-list.component';
 import { NavbarComponent } from './navbar/navbar.component';
+import { CreateGameComponent } from './profile/create-game/create-game.component';
+import { EditProfileComponent } from './profile/edit-profile/edit-profile.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +27,8 @@ import { NavbarComponent } from './navbar/navbar.component';
     PlayedGamesComponent,
     GameListComponent,
     NavbarComponent,
+    CreateGameComponent,
+    EditProfileComponent,
   ],
   imports: [
     BrowserModule,

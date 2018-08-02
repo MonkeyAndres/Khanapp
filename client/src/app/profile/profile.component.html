@@ -6,11 +6,13 @@
         #tabGroup (selectedTabChange)="tabChanged(tabGroup)" 
         [dynamicHeight]="true">
     <mat-tab label="Profile">
-      <app-profile-info [user]="auth.user" [editable]="editProfile"></app-profile-info>
+      <app-profile-info [user]="auth.user" *ngIf="!editProfile"></app-profile-info>
+      <app-edit-profile [user]="auth.user" *ngIf="editProfile"></app-edit-profile>
     </mat-tab>
 
     <mat-tab label="Created Games">
       <app-game-list [games]="createdGames" [type]="'Created'" *ngIf="!createGame"></app-game-list>
+      <app-create-game *ngIf="createGame"></app-create-game>
     </mat-tab>
 
     <mat-tab label="Played Games">

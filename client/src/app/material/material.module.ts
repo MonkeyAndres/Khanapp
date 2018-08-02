@@ -11,6 +11,8 @@ import {MatTabsModule} from '@angular/material/tabs';
 import {MatListModule} from '@angular/material/list';
 import {MatMenuModule} from '@angular/material/menu';
 import {MatIconModule} from '@angular/material/icon';
+import {MatExpansionModule} from '@angular/material/expansion';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 
 @NgModule({
   imports: [
@@ -23,7 +25,9 @@ import {MatIconModule} from '@angular/material/icon';
     MatTabsModule,
     MatListModule,
     MatIconModule,
-    MatMenuModule
+    MatMenuModule,
+    MatExpansionModule,
+    MatSnackBarModule
   ],
   exports: [
     MatFormFieldModule,
@@ -34,7 +38,9 @@ import {MatIconModule} from '@angular/material/icon';
     MatTabsModule,
     MatListModule,
     MatIconModule,
-    MatMenuModule
+    MatMenuModule,
+    MatExpansionModule,
+    MatSnackBarModule
   ],
   declarations: []
 })

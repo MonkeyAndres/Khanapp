@@ -1,0 +1,40 @@
+<h2>Edit profile info</h2>
+
+<mat-accordion>
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>Personal data</mat-panel-title>
+    </mat-expansion-panel-header>
+
+    <form (ngSubmit)="editInfo(infoForm)" #infoForm="ngForm">
+      <input name="profilePic" [(ngModel)]="profilePic" type="file">
+
+      <mat-form-field class="full-width">
+        <input matInput placeholder="Username" name="username" [(ngModel)]="username" disabled>
+      </mat-form-field>
+
+      <mat-form-field class="full-width">
+        <textarea matInput placeholder="Biography" name="bio" [(ngModel)]="bio" id="bio" cdkTextareaAutosize resizeToFitContent="true"></textarea>
+      </mat-form-field>
+      <button mat-stroked-button color="accent">save</button>
+    </form>
+
+  </mat-expansion-panel>
+
+  <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+    <mat-expansion-panel-header>
+      <mat-panel-title>Change Password</mat-panel-title>
+    </mat-expansion-panel-header>
+
+    <form (ngSubmit)="editInfo(passwordForm)" #passwordForm="ngForm">
+      <mat-form-field class="full-width">
+        <input matInput placeholder="Current Password" name="currentPassword" [(ngModel)]="currentPassword" type="password">
+      </mat-form-field>
+      <mat-form-field class="full-width">
+        <input matInput placeholder="New Password" name="newPassword" [(ngModel)]="newPassword" type="password">
+      </mat-form-field>
+      <button mat-stroked-button color="accent">Change</button>
+    </form>
+
+  </mat-expansion-panel>
+</mat-accordion>
