@@ -8,7 +8,7 @@ const configure = (passport) => {
     });
 
     passport.deserializeUser((id, done) => {
-        User.findById(id)
+        User.findById(id).populate('createdGames')
         .then(user => done(null, user))
         .catch(err => done(err, null));
     });

@@ -7,6 +7,8 @@ const userSchema = new Schema({
     username: {type: String, required: true, unique: true},
     password: String,
     email: {type: String, required: true, unique: true},
+    bio: String,
+    profilePicture: String,
     createdGames: [ {type: Schema.Types.ObjectId, ref: "Game"} ],
     // location: {
     //     type: {

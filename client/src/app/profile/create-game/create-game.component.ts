@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { NgForm } from '@angular/forms';
+import { GamesService } from '../../services/games.service';
 
 @Component({
   selector: 'app-create-game',
@@ -7,9 +9,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CreateGameComponent implements OnInit {
 
-  constructor() { }
+  constructor(public game: GamesService) { }
 
   ngOnInit() {
+  }
+
+  createGame(form: NgForm) {
+    console.log(form.value);
+    this.game.create(form.value).subscribe(data => {
+      console.log(data);
+    });
   }
 
 }

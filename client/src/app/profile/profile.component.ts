@@ -23,6 +23,7 @@ export class ProfileComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    console.log(this.auth.user);
     this.createdGames = this.auth.user.createdGames;
     this.games.getPlayedBy(this.auth.user.username)
     .subscribe(data => this.playedGames = Object(data));

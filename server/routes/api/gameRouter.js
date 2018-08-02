@@ -48,13 +48,14 @@ router.post('/', (req, res, next) => {
             difficulty,
             date,
             challenges,
-            creator
+            creator: req.user._id
         });
 
         return newGame.save();
     })
     .then(game => {
-        User.findByIdAndUpdate(creator, {$push: {createdGames: game}})
+        console.log(game._id);
+        User.findByIdAndUpdate(req.user._id, {$push: {createdGames: game._id}})
         .then(user => {
             res.status(200).json(game);
         })

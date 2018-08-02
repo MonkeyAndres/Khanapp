@@ -10,8 +10,6 @@ import { AppComponent } from './app.component';
 import { AuthComponent } from './auth/auth.component';
 import { ProfileComponent } from './profile/profile.component';
 import { InfoComponent } from './profile/info/info.component';
-import { CreatedGamesComponent } from './profile/created-games/created-games.component';
-import { PlayedGamesComponent } from './profile/played-games/played-games.component';
 import { GameListComponent } from './profile/game-list/game-list.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { CreateGameComponent } from './profile/create-game/create-game.component';
@@ -23,8 +21,6 @@ import { EditProfileComponent } from './profile/edit-profile/edit-profile.compon
     AuthComponent,
     ProfileComponent,
     InfoComponent,
-    CreatedGamesComponent,
-    PlayedGamesComponent,
     GameListComponent,
     NavbarComponent,
     CreateGameComponent,

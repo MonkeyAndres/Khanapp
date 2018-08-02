@@ -13,6 +13,9 @@ import {MatMenuModule} from '@angular/material/menu';
 import {MatIconModule} from '@angular/material/icon';
 import {MatExpansionModule} from '@angular/material/expansion';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
+import {MatSelectModule} from '@angular/material/select';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatNativeDateModule} from '@angular/material';
 
 @NgModule({
   imports: [
@@ -27,7 +30,10 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
     MatIconModule,
     MatMenuModule,
     MatExpansionModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatSelectModule,
+    MatDatepickerModule,
+    MatNativeDateModule
   ],
   exports: [
     MatFormFieldModule,
@@ -40,7 +46,10 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
     MatIconModule,
     MatMenuModule,
     MatExpansionModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatSelectModule,
+    MatDatepickerModule,
+    MatNativeDateModule
   ],
   declarations: []
 })
