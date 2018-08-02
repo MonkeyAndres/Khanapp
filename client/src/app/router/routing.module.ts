@@ -5,11 +5,11 @@ import { Routes, RouterModule } from '@angular/router';
 import { AuthComponent } from '../auth/auth.component';
 import { ProfileComponent } from '../profile/profile.component';
 
-import { UserNotLogged, UserLogged } from './routing.guards';
+import { CanLogin, UserLogged } from './routing.guards';
 
 const routes: Routes = [
-  {path: 'login', component: AuthComponent, canActivate: [UserNotLogged]},
-  {path: 'signup', component: AuthComponent, canActivate: [UserNotLogged]},
+  {path: 'login', component: AuthComponent, canActivate: [CanLogin]},
+  {path: 'signup', component: AuthComponent, canActivate: [CanLogin]},
   {path: 'profile', component: ProfileComponent, canActivate: [UserLogged]},
 ];
 
@@ -20,6 +20,6 @@ const routes: Routes = [
   ],
   exports: [ RouterModule ],
   declarations: [],
-  providers: [ UserLogged, UserNotLogged ],
+  providers: [ UserLogged, CanLogin ],
 })
 export class RoutingModule { }

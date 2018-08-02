@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
-import { tap } from 'rxjs/operators';
+import { tap, map, catchError } from 'rxjs/operators';
+import { Observable, of } from 'rxjs';
 
 export interface User {
   username: string;
@@ -17,7 +18,10 @@ export class AuthService {
   options: object = {withCredentials: true};
 
   constructor(public http: HttpClient) {
-    this.isLogged().subscribe(() => console.log(this.user));
+    // this.isLogged().subscribe(
+    //   data => this.user = data,
+    //   error => console.log('Not Logged In')
+    // );
   }
 
   login(user: User) {
@@ -34,12 +38,12 @@ export class AuthService {
 
   isLogged() {
     return this.http.post(`${this.BASEURL}/api/auth/loggedin`, {}, this.options).pipe(
-      tap((data: User) => this.user = data),
+      tap(data => this.user = data),
     );
   }
 
   logout() {
-    return this.http.post(`${this.BASEURL}/api/logout`, {}, this.options).pipe(
+    return this.http.post(`${this.BASEURL}/api/auth/logout`, {}, this.options).pipe(
       tap((data: User) => this.user = null)
     );
   }

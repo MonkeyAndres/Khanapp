@@ -5,10 +5,11 @@
       <h1>My Profile</h1>
       <span class="example-spacer"></span>
       <mat-icon class="example-icon">home</mat-icon>
+      <mat-icon class="example-icon" (click)="logout()">exit_to_app</mat-icon>
     </mat-toolbar-row>
   </mat-toolbar>
 
-  <mat-tab-group [color]="'primary'" [backgroundColor]="'primary'">
+  <mat-tab-group [color]="'primary'" [backgroundColor]="'primary'" #tabGroup (selectedTabChange)="tabChanged()" [dynamicHeight]="true">
     <mat-tab label="Profile">
       <div class="img-container">
         <img src="http://www.personalbrandingblog.com/wp-content/uploads/2017/08/blank-profile-picture-973460_640-300x300.png" alt="">
@@ -18,10 +19,6 @@
 
       <p id="bio">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Culpa officiis nihil eum tenetur veritatis minus ratione
         non iure ipsum voluptatum id temporibus magni, possimus labore asperiores totam facere quidem similique.</p>
-
-      <button class="fab">
-        <mat-icon>edit</mat-icon>
-      </button>
     </mat-tab>
 
     <mat-tab label="Created Games">
@@ -34,10 +31,6 @@
           <p mat-line> {{game.date | date}} </p>
         </mat-list-item>
       </mat-list>
-
-      <button class="fab">
-        <mat-icon>add</mat-icon>
-      </button>
     </mat-tab>
 
     <mat-tab label="Played Games">
@@ -53,4 +46,7 @@
     </mat-tab>
   </mat-tab-group>
 
+  <button id="fab" *ngIf="tabGroup.selectedIndex !== 2">
+    <mat-icon>{{fabIcon}}</mat-icon>
+  </button>
 </div>
