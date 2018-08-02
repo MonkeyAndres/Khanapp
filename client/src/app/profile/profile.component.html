@@ -9,7 +9,7 @@
     </mat-toolbar-row>
   </mat-toolbar>
 
-  <mat-tab-group [color]="'primary'" [backgroundColor]="'primary'" #tabGroup (selectedTabChange)="tabChanged()" [dynamicHeight]="true">
+  <mat-tab-group [color]="'primary'" [backgroundColor]="'primary'" #tabGroup (selectedTabChange)="tabChanged(tabGroup)" [dynamicHeight]="true">
     <mat-tab label="Profile">
       <div class="img-container">
         <img src="http://www.personalbrandingblog.com/wp-content/uploads/2017/08/blank-profile-picture-973460_640-300x300.png" alt="">
@@ -46,7 +46,7 @@
     </mat-tab>
   </mat-tab-group>
 
-  <button id="fab" *ngIf="tabGroup.selectedIndex !== 2">
+  <button id="fab" *ngIf="fabIcon">
     <mat-icon>{{fabIcon}}</mat-icon>
   </button>
 </div>

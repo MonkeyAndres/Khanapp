@@ -26,8 +26,18 @@ export class ProfileComponent implements OnInit {
     .subscribe(data => this.playedGames = Object(data));
   }
 
-  tabChanged() {
-    this.fabIcon = this.fabIcon === 'add' ? 'edit' : 'add';
+  tabChanged(tabGroup) {
+    switch (tabGroup.selectedIndex) {
+      case 0:
+        this.fabIcon = 'edit';
+        break;
+      case 1:
+        this.fabIcon = 'add';
+        break;
+      case 2:
+        this.fabIcon = '';
+        break;
+    }
   }
 
   logout() {
