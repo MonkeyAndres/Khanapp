@@ -9,6 +9,7 @@ import {MatCardModule} from '@angular/material/card';
 import {MatButtonModule} from '@angular/material/button';
 import {MatTabsModule} from '@angular/material/tabs';
 import {MatListModule} from '@angular/material/list';
+import {MatMenuModule} from '@angular/material/menu';
 import {MatIconModule} from '@angular/material/icon';
 
 @NgModule({
@@ -21,7 +22,8 @@ import {MatIconModule} from '@angular/material/icon';
     MatButtonModule,
     MatTabsModule,
     MatListModule,
-    MatIconModule
+    MatIconModule,
+    MatMenuModule
   ],
   exports: [
     MatFormFieldModule,
@@ -31,7 +33,8 @@ import {MatIconModule} from '@angular/material/icon';
     MatButtonModule,
     MatTabsModule,
     MatListModule,
-    MatIconModule
+    MatIconModule,
+    MatMenuModule
   ],
   declarations: []
 })

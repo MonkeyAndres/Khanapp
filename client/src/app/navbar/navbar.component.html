@@ -1,0 +1,17 @@
+<mat-toolbar color="primary">
+  <mat-toolbar-row>
+    <h1>My Profile</h1>
+    <span class="example-spacer"></span>
+
+    <mat-menu #moreMenu="matMenu" yPosition="above">
+      <button mat-menu-item>Home</button>
+      <button mat-menu-item>Profile</button>
+      <button mat-menu-item>Games</button>
+      <button mat-menu-item (click)="logout()">Logout</button>
+    </mat-menu>
+
+    <button mat-icon-button [matMenuTriggerFor]="moreMenu">
+      <mat-icon class="example-icon">more_vert</mat-icon>
+    </button>
+  </mat-toolbar-row>
+</mat-toolbar>

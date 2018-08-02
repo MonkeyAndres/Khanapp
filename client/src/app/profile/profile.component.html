@@ -1,52 +1,24 @@
 <div *ngIf="auth.user">
+  <app-navbar></app-navbar>
 
-  <mat-toolbar color="primary">
-    <mat-toolbar-row>
-      <h1>My Profile</h1>
-      <span class="example-spacer"></span>
-      <mat-icon class="example-icon">home</mat-icon>
-      <mat-icon class="example-icon" (click)="logout()">exit_to_app</mat-icon>
-    </mat-toolbar-row>
-  </mat-toolbar>
-
-  <mat-tab-group [color]="'primary'" [backgroundColor]="'primary'" #tabGroup (selectedTabChange)="tabChanged(tabGroup)" [dynamicHeight]="true">
+  <mat-tab-group 
+        [color]="'primary'" [backgroundColor]="'primary'" 
+        #tabGroup (selectedTabChange)="tabChanged(tabGroup)" 
+        [dynamicHeight]="true">
     <mat-tab label="Profile">
-      <div class="img-container">
-        <img src="http://www.personalbrandingblog.com/wp-content/uploads/2017/08/blank-profile-picture-973460_640-300x300.png" alt="">
-      </div>
-
-      <h2 id="username">{{auth.user.username}}</h2>
-
-      <p id="bio">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Culpa officiis nihil eum tenetur veritatis minus ratione
-        non iure ipsum voluptatum id temporibus magni, possimus labore asperiores totam facere quidem similique.</p>
+      <app-profile-info [user]="auth.user" [editable]="editProfile"></app-profile-info>
     </mat-tab>
 
     <mat-tab label="Created Games">
-      <h3>Created Games</h3>
-
-      <mat-list>
-        <mat-list-item *ngFor="let game of auth.user.createdGames">
-          <mat-icon mat-list-icon>videogame_asset</mat-icon>
-          <h4 mat-line>{{game.title}}</h4>
-          <p mat-line> {{game.date | date}} </p>
-        </mat-list-item>
-      </mat-list>
+      <app-game-list [games]="createdGames" [type]="'Created'" *ngIf="!createGame"></app-game-list>
     </mat-tab>
 
     <mat-tab label="Played Games">
-      <h3>Played Games</h3>
-
-      <mat-list>
-        <mat-list-item *ngFor="let game of playedGames">
-          <mat-icon mat-list-icon>videogame_asset</mat-icon>
-          <h4 mat-line>{{game.title}}</h4>
-          <p mat-line> {{game.date | date}} </p>
-        </mat-list-item>
-      </mat-list>
+      <app-game-list [games]="playedGames" [type]="'Played'"></app-game-list>
     </mat-tab>
   </mat-tab-group>
 
   <button id="fab" *ngIf="fabIcon">
-    <mat-icon>{{fabIcon}}</mat-icon>
+    <mat-icon (click)="changeComponent()">{{fabIcon}}</mat-icon>
   </button>
 </div>

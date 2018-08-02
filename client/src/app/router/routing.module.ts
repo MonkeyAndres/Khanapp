@@ -10,6 +10,7 @@ import { CanLogin, UserLogged } from './routing.guards';
 const routes: Routes = [
   {path: 'login', component: AuthComponent, canActivate: [CanLogin]},
   {path: 'signup', component: AuthComponent, canActivate: [CanLogin]},
+
   {path: 'profile', component: ProfileComponent, canActivate: [UserLogged]},
 ];
 

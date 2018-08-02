@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthService, User } from './../services/auth.service';
+import { AuthService } from './../services/auth.service';
 import { GamesService } from '../services/games.service';
-import { MatTabChangeEvent } from '@angular/material/tabs';
 
 @Component({
   selector: 'app-profile',
@@ -13,6 +12,9 @@ export class ProfileComponent implements OnInit {
   createdGames: Array<any>;
   playedGames: Array<any>;
   fabIcon = 'edit';
+
+  editProfile = false;
+  createGame = false;
 
   constructor(
     public auth: AuthService,
@@ -40,9 +42,9 @@ export class ProfileComponent implements OnInit {
     }
   }
 
-  logout() {
-    this.auth.logout().subscribe(() => {
-      this.router.navigate(['/']);
-    });
+  changeComponent() {
+    if (this.fabIcon === 'edit') {
+      this.editProfile = !this.editProfile;
+    } else { this.createGame = !this.createGame; }
   }
 }
