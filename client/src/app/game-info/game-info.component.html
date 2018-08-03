@@ -1,0 +1,53 @@
+<app-navbar [title]="gameTitle"></app-navbar>
+
+<div class="container" *ngIf="game">
+  <h2>{{game.title}}</h2>
+  <p>{{game.description}}</p>
+
+  <div class="infoAccordion">
+    <mat-accordion>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>Players</mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <mat-list>
+          <mat-list-item *ngFor="let player of game.players">
+            <mat-icon mat-list-icon>person</mat-icon>
+            <h4 mat-line>{{player.username}}</h4>
+          </mat-list-item>
+        </mat-list>
+
+      </mat-expansion-panel>
+
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>Challenges</mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <mat-list>
+          <mat-list-item *ngFor="let challenge of game.challenges">
+            <mat-icon mat-list-icon>casino</mat-icon>
+            <h4 mat-line>{{challenge.title}}</h4>
+          </mat-list-item>
+        </mat-list>
+
+      </mat-expansion-panel>
+
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>Game Area</mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <app-gamearea-viewer [coordinates]="coordinates" id="gameArea"></app-gamearea-viewer>
+
+      </mat-expansion-panel>
+    </mat-accordion>
+  </div>
+
+  <div class="button-row">
+    <button mat-raised-button color="accent">Join Game</button>
+    <button mat-raised-button color="accent" *ngIf="false">Edit Game</button>
+    <button mat-raised-button color="accent" *ngIf="false">Delete Game</button>
+  </div>
+</div>

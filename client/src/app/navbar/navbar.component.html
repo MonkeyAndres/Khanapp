@@ -5,7 +5,7 @@
 
     <mat-menu #moreMenu="matMenu" yPosition="above">
       <button mat-menu-item>Home</button>
-      <button mat-menu-item>Profile</button>
+      <button mat-menu-item [routerLink]="['/profile']">Profile</button>
       <button mat-menu-item>Games</button>
       <button mat-menu-item (click)="logout()">Logout</button>
     </mat-menu>

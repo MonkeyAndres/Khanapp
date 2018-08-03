@@ -24,8 +24,8 @@ export class GamesService implements CRUD {
     return this.http.get(`${this.BASEURL}/api/game/`, this.options);
   }
 
-  getOne(title) {
-    return this.http.get(`${this.BASEURL}/api/game/${title}`, this.options);
+  getOne(id) {
+    return this.http.get(`${this.BASEURL}/api/game/${id}`, this.options);
   }
 
   getPlayedBy(username) {

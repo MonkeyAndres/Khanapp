@@ -1,0 +1,25 @@
+.container{
+    width: 100%;
+    padding: 1.2em 16px;
+
+    h2{
+        font-weight: normal;
+    }
+
+    p{
+        font-weight: 300;
+    }
+
+    #difficulty{
+        margin: 1em 0;
+    }
+
+    .infoAccordion{
+        margin: 1em 0;
+    }
+
+    .button-row button{
+        margin-top: 1em;
+        margin-right: 8px;
+    }
+}
