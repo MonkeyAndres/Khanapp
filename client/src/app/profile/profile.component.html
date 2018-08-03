@@ -1,7 +1,7 @@
 <div *ngIf="auth.user">
   <app-navbar [title]="'Home'"></app-navbar>
 
-  <mat-tab-group 
+  <mat-tab-group
         [color]="'primary'" [backgroundColor]="'primary'" 
         #tabGroup (selectedTabChange)="tabChanged(tabGroup)" 
         [dynamicHeight]="true">
