@@ -31,8 +31,8 @@ router.get('/played/:username', (req, res, next) => {
     .catch(err => next(err));
 })
 
-router.get('/:title', (req, res, next) => {
-    Game.find({title: req.params.title})
+router.get('/:id', (req, res, next) => {
+    Game.findById(req.params.id).populate('players challenges')
     .then(games => res.status(200).json(games))
     .catch(err => next(err));
 })
@@ -48,7 +48,8 @@ router.post('/', (req, res, next) => {
             difficulty,
             date,
             challenges,
-            creator: req.user._id
+            creator: req.user._id,
+            players: [req.user._id]
         });
 
         return newGame.save();

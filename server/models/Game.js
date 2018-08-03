@@ -9,17 +9,28 @@ const gameSchema = new Schema({
     description: String,
     difficulty: Number,
     date: Date,
-    // gameArea: {
-    //     type: {
-    //         type: String,
-    //         enum: ['Polygon'],
-    //         required: true
-    //     },
-    //     coordinates: {
-    //         type: [[[Number]]],
-    //         required: true
-    //     }
-    // },
+    midddlePos: {
+        type: {
+            type: String,
+            enum: ['Point'], 
+            required: true
+        },
+        coordinates: {
+            type: [Number],
+            required: true
+        }
+    },
+    gameArea: {
+        type: {
+            type: String,
+            enum: ['Polygon'],
+            required: true
+        },
+        coordinates: {
+            type: [[[Number]]],
+            required: true
+        }
+    },
     players: [ User ],
     challenges: [ {type: Schema.Types.ObjectId, ref: "Challenge"} ],
     creator: User
