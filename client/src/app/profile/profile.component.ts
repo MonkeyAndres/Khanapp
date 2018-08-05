@@ -33,19 +33,27 @@ export class ProfileComponent implements OnInit {
     switch (tabGroup.selectedIndex) {
       case 0:
         this.fabIcon = 'edit';
+        this.editProfile = false;
         break;
       case 1:
         this.fabIcon = 'add';
+        this.createGame = false;
         break;
       case 2:
         this.fabIcon = '';
+        this.editProfile = false;
+        this.createGame = false;
         break;
     }
   }
 
   changeComponent() {
-    if (this.fabIcon === 'edit') {
+    if (this.fabIcon === 'edit' || this.editProfile) {
       this.editProfile = !this.editProfile;
-    } else { this.createGame = !this.createGame; }
+      this.fabIcon = this.editProfile ? 'close' : 'edit';
+    } else if (this.fabIcon === 'add' || this.createGame) {
+      this.createGame = !this.createGame;
+      this.fabIcon = this.createGame ? 'close' : 'add';
+    }
   }
 }
