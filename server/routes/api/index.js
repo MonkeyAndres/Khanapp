@@ -6,9 +6,17 @@ const gameRouter = require('./gameRouter');
 const challengeRouter = require('./challengeRouter');
 const authRoutes = require('./authRoutes');
 
-router.use('/user', userRouter);
-router.use('/game', gameRouter);
-router.use('/challenge/', challengeRouter);
-router.use('/auth', authRoutes)
+const loggedIn = (req, res, next) => {
+    if(req.user) {
+        next();
+    } else {
+        throw new Error('Unauthorized');
+    }
+}
+
+router.use('/user', loggedIn, userRouter);
+router.use('/game', loggedIn, gameRouter);
+router.use('/challenge/', loggedIn, challengeRouter);
+router.use('/auth', authRoutes);
 
 module.exports = router;
