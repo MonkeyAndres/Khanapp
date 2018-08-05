@@ -1,7 +1,7 @@
-import { Component, ViewChild, OnInit, AfterContentInit } from '@angular/core';
+import { Component, ViewChild, OnInit, AfterContentInit, NgZone } from '@angular/core';
 import { Element } from '@angular/compiler';
+import { MapsAPILoader } from '@agm/core';
 import {} from '@types/googlemaps';
-import { LatLngLiteral } from '@agm/core';
 
 @Component({
   selector: 'app-gamearea-drawer',
@@ -10,6 +10,7 @@ import { LatLngLiteral } from '@agm/core';
 })
 export class GameareaDrawerComponent implements OnInit {
   @ViewChild('gmap') gmapElement: any;
+
   map: google.maps.Map;
   completed = false;
   data: any;
@@ -18,31 +19,42 @@ export class GameareaDrawerComponent implements OnInit {
     coordinate: [],
   };
 
+  constructor(private mapsAPILoader: MapsAPILoader, private ngZone: NgZone) {}
+
   ngOnInit() {
-    this.map = new google.maps.Map(this.gmapElement.nativeElement, {
-      center: {lat: -34.397, lng: 150.644},
-      zoom: 8
-    });
+    this.mapsAPILoader.load()
+    .then(() => {
+      navigator.geolocation.getCurrentPosition((position) => {
+        console.log('Got position', position.coords);
+        const lat = position.coords.latitude;
+        const lng = position.coords.longitude;
 
-    const drawingManager = new google.maps.drawing.DrawingManager({
-      drawingMode: google.maps.drawing.OverlayType.MARKER,
-      drawingControl: true,
-      drawingControlOptions: {
-        position: google.maps.ControlPosition.TOP_CENTER,
-        drawingModes: ['polygon']
-      },
-      circleOptions: {
-        fillColor: '#ffff00',
-        fillOpacity: 1,
-        strokeWeight: 5,
-        clickable: false,
-        editable: true,
-        zIndex: 1
-      }
-    });
-    drawingManager.setMap(this.map);
+        this.map = new google.maps.Map(this.gmapElement.nativeElement, {
+          center: {lat, lng},
+          zoom: 12,
+        });
 
-    google.maps.event.addListener(drawingManager, 'polygoncomplete', this.polygonGetPaths.bind(this));
+        const drawingManager = new google.maps.drawing.DrawingManager({
+          drawingMode: google.maps.drawing.OverlayType.MARKER,
+          drawingControl: true,
+          drawingControlOptions: {
+            position: google.maps.ControlPosition.TOP_CENTER,
+            drawingModes: ['polygon']
+          },
+          circleOptions: {
+            fillColor: '#ffff00',
+            fillOpacity: 1,
+            strokeWeight: 5,
+            clickable: false,
+            editable: true,
+            zIndex: 1
+          }
+        });
+        drawingManager.setMap(this.map);
+    
+        google.maps.event.addListener(drawingManager, 'polygoncomplete', this.polygonGetPaths.bind(this));
+      });
+    });
   }
 
   pathsToGeoJson(polygonPaths) {
@@ -99,6 +111,4 @@ export class GameareaDrawerComponent implements OnInit {
 
     return [ middleLng, middleLat ];
   }
-
-  constructor() {}
 }
