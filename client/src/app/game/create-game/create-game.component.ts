@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { Router } from '@angular/router';
 import { GameareaDrawerComponent } from './../../maps/gamearea-drawer/gamearea-drawer.component';
 import { GamesService } from '../../services/games.service';
 
@@ -13,7 +14,7 @@ export class CreateGameComponent implements OnInit {
   @ViewChild(GameareaDrawerComponent) gameArea;
   message: string;
 
-  constructor(public game: GamesService) { }
+  constructor(public game: GamesService, public router: Router) { }
 
   ngOnInit() {
   }
@@ -24,7 +25,7 @@ export class CreateGameComponent implements OnInit {
       form.value.middlePos = this.gameArea.middle;
 
       this.game.create(form.value).subscribe(data => {
-        console.log(data);
+        this.router.navigate(['/profile']);
       });
     }
   }

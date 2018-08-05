@@ -26,8 +26,14 @@ router.get('/', (req, res, next) => {
 })
 
 router.get('/played/:username', (req, res, next) => {
-    Game.find({ players: req.params.username })
-    .then(games => res.status(200).json(games))
+    User.findOne({ username: req.params.username })
+    .then(user => {
+        return Game.find({players: user._id});
+    })
+    .then(games => {
+        console.log(games);
+        res.status(200).json(games)
+    })
     .catch(err => next(err));
 })
 
