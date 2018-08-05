@@ -18,6 +18,7 @@ import { EditProfileComponent } from './profile/edit-profile/edit-profile.compon
 import { GameInfoComponent } from './game/game-info/game-info.component';
 import { GameareaViewerComponent } from './maps/gamearea-viewer/gamearea-viewer.component';
 import { GameareaDrawerComponent } from './maps/gamearea-drawer/gamearea-drawer.component';
+import { FileUploadModule } from 'ng2-file-upload';
 
 @NgModule({
   declarations: [
@@ -40,10 +41,11 @@ import { GameareaDrawerComponent } from './maps/gamearea-drawer/gamearea-drawer.
     RoutingModule,
     BrowserAnimationsModule,
     MaterialModule,
+    FileUploadModule,
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyCHzBSzavSY29YBL4mJE-oWbfPBdxluKYw',
       libraries: ['places', 'drawing', 'geometry'],
-    })
+    }),
   ],
   providers: [],
   bootstrap: [AppComponent]

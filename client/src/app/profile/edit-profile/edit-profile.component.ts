@@ -1,8 +1,11 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { User } from './../../services/auth.service';
 import { PlayerService } from '../../services/player.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { FileUploader } from 'ng2-file-upload';
+import { environment } from '../../../environments/environment';
+
+const URL = `${environment.BASEURL}/api/user`;
 
 @Component({
   selector: 'app-edit-profile',
@@ -15,21 +18,23 @@ export class EditProfileComponent implements OnInit {
 
   username: string;
   bio: string;
+  uploader: FileUploader = new FileUploader({url: URL, method: 'PUT'});
 
   constructor(public playerService: PlayerService, public snackBar: MatSnackBar) { }
 
   ngOnInit() {
     this.username = this.user.username;
-    this.bio = 'Patata!!';
+    this.bio = this.user.bio;
   }
 
   editInfo(form: NgForm) {
     const player = form.value;
-    player._id = this.user._id;
-    console.log(player);
+
+    this.uploader.uploadAll();
 
     this.playerService.edit(player).subscribe(data => {
       this.snackBar.open('Profile Edited', '', { duration: 2000 });
+      form.reset();
     });
   }
 }

@@ -17,14 +17,14 @@ export class PlayerService implements CRUD {
   }
 
   edit(player) {
-    return this.http.put(`${this.BASEURL}/api/user/${player._id}`, player, this.options);
+    return this.http.put(`${this.BASEURL}/api/user/`, player, this.options);
   }
 
   getOne(username) {
     return this.http.get(`${this.BASEURL}/api/user/${username}`, this.options);
   }
 
-  delete(id) {
-    return this.http.put(`${this.BASEURL}/api/user/${id}`, this.options);
+  delete() {
+    return this.http.put(`${this.BASEURL}/api/user/`, this.options);
   }
 }

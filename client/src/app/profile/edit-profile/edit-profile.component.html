@@ -6,10 +6,10 @@
       <mat-panel-title>Personal data</mat-panel-title>
     </mat-expansion-panel-header>
 
-    <form (ngSubmit)="editInfo(infoForm)" #infoForm="ngForm">
+    <form (ngSubmit)="editInfo(infoForm)" #infoForm="ngForm" enctype="multipart/form-data">
         <div class="upload-btn-wrapper">
           <button class="btn">Upload Profile Photo</button>
-          <input type="file" name="profilePic" [(ngModel)]="profilePic" />
+          <input type="file" ng2FileSelect [uploader]="uploader" />
         </div>
 
       <mat-form-field class="full-width">
@@ -31,10 +31,10 @@
 
     <form (ngSubmit)="editInfo(passwordForm)" #passwordForm="ngForm">
       <mat-form-field class="full-width">
-        <input matInput placeholder="Current Password" name="currentPassword" [(ngModel)]="currentPassword" type="password">
+        <input matInput placeholder="Current Password" name="password" [(ngModel)]="password" type="password" required>
       </mat-form-field>
       <mat-form-field class="full-width">
-        <input matInput placeholder="New Password" name="newPassword" [(ngModel)]="newPassword" type="password">
+        <input matInput placeholder="New Password" name="newPassword" [(ngModel)]="newPassword" type="password" required>
       </mat-form-field>
       <button mat-stroked-button color="accent">Change</button>
     </form>

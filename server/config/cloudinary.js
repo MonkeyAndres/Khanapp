@@ -1,7 +1,8 @@
+require('dotenv').config()
+
+var multer = require('multer');
 var cloudinary = require('cloudinary');
 var cloudinaryStorage = require('multer-storage-cloudinary');
-var express = require('express');
-var multer = require('multer');
 
 cloudinary.config({
     cloud_name: process.env.CLOUDINARY_CLOUDNAME,
@@ -10,7 +11,8 @@ cloudinary.config({
 });
 
 const createFilename = (file) => {
-    
+    console.log(file.originalname);
+    return `${Date.now()}_${file.originalname}`;
 }
 
 const storage = cloudinaryStorage({
@@ -26,4 +28,4 @@ const uploader = multer({
     storage: storage
 });
 
-module.exports = { uploader };
+module.exports = uploader;

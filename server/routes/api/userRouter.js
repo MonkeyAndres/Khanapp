@@ -1,9 +1,11 @@
 const express = require('express');
 const bcrypt = require('bcrypt');
-const upload = require('../../config/cloudinary');
 const _ = require('lodash');
 const router = express.Router();
 const loggedIn = require('../../middleware/loggedIn');
+
+const multer = require('multer');
+const upload = require('../../config/cloudinary');
 
 const User = require('../../models/User');
 
@@ -37,18 +39,25 @@ router.post('/', (req, res, next) => {
     .catch(err => next(err));
 });
 
-router.put('/', loggedIn, (req, res, next) => {
+router.put('/', [loggedIn, upload.single('file')], (req, res, next) => {
     const userId = req.user._id;
     const { bio, password, newPassword, email } = req.body;
 
+    // Remove undefined fields
     let editedUser = { bio, password, newPassword, email };
     editedUser = _.pickBy(editedUser, _.identity);
 
-    if (bcrypt.compareSync(editedUser.password, req.user.password)){
+    // Change Password
+    if (editedUser.newPassword && bcrypt.compareSync(editedUser.password, req.user.password)){
         editedUser.password = encrypt(editedUser.newPassword);
         delete editedUser.newPassword;
     }
 
+    if (req.file) {
+        editedUser.profilePicture = req.file.url;
+    }
+
+    // Edit user
     User.findByIdAndUpdate(userId, editedUser, {new: true})
     .then(user => {
         res.status(200).json(user);

@@ -1,4 +1,4 @@
-import { Component, ViewChild, OnInit, AfterContentInit, NgZone } from '@angular/core';
+import { Component, ViewChild, OnInit } from '@angular/core';
 import { Element } from '@angular/compiler';
 import { MapsAPILoader } from '@agm/core';
 import {} from '@types/googlemaps';
@@ -19,7 +19,7 @@ export class GameareaDrawerComponent implements OnInit {
     coordinate: [],
   };
 
-  constructor(private mapsAPILoader: MapsAPILoader, private ngZone: NgZone) {}
+  constructor(private mapsAPILoader: MapsAPILoader) {}
 
   ngOnInit() {
     this.mapsAPILoader.load()
