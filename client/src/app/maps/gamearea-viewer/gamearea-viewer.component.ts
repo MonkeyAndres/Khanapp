@@ -1,5 +1,5 @@
-import { Component, OnInit, Input } from '@angular/core';
 import { LatLngLiteral } from '@agm/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'app-gamearea-viewer',
@@ -8,13 +8,33 @@ import { LatLngLiteral } from '@agm/core';
 })
 export class GameareaViewerComponent implements OnInit {
 
-  @Input() coordinates;
-  @Input() middlePoint: LatLngLiteral;
-  boundPoints: Array<LatLngLiteral>;
+  @Input() gameAreaCoords;
+  @Input() middlePoint;
+
+  middle: any;
+  coordinates: Array<LatLngLiteral>;
 
   constructor() { }
 
   ngOnInit() {
+    this.middle = this.toLatLngLiteral(this.middlePoint);
+    this.coordinates = this.toLatLngLiteral(this.gameAreaCoords);
+  }
+
+  toLatLngLiteral(geoJson): any {
+    const LNG = 0;
+    const LAT = 1;
+    const result: Array<LatLngLiteral> = [];
+
+    if (geoJson.length === 2){
+      return {lng: geoJson[LNG], lat: geoJson[LAT]};
+    }
+
+    for (const coord of geoJson) {
+      result.push({lng: coord[LNG][0], lat: coord[LAT][0]});
+    }
+
+    return result;
   }
 }
 

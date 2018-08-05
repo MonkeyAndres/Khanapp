@@ -31,9 +31,9 @@ const gameSchema = new Schema({
             required: true
         }
     },
-    players: [ User ],
+    players: [ {type: Schema.Types.ObjectId, ref: "User"} ],
     challenges: [ {type: Schema.Types.ObjectId, ref: "Challenge"} ],
-    creator: User
+    creator: {type: Schema.Types.ObjectId, ref: "Challenge"}
 })
 
 module.exports = mongoose.model('Game', gameSchema);
