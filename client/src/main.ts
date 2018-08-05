@@ -8,5 +8,8 @@ if (environment.production) {
   enableProdMode();
 }
 
+const initMap = () => {
+};
+
 platformBrowserDynamic().bootstrapModule(AppModule)
   .catch(err => console.log(err));

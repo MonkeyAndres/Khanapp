@@ -13,10 +13,11 @@ import { ProfileComponent } from './profile/profile.component';
 import { InfoComponent } from './profile/info/info.component';
 import { GameListComponent } from './profile/game-list/game-list.component';
 import { NavbarComponent } from './navbar/navbar.component';
-import { CreateGameComponent } from './profile/create-game/create-game.component';
+import { CreateGameComponent } from './game/create-game/create-game.component';
 import { EditProfileComponent } from './profile/edit-profile/edit-profile.component';
-import { GameInfoComponent } from './game-info/game-info.component';
-import { GameareaViewerComponent } from './game-info/gamearea-viewer/gamearea-viewer.component';
+import { GameInfoComponent } from './game/game-info/game-info.component';
+import { GameareaViewerComponent } from './maps/gamearea-viewer/gamearea-viewer.component';
+import { GameareaDrawerComponent } from './maps/gamearea-drawer/gamearea-drawer.component';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import { GameareaViewerComponent } from './game-info/gamearea-viewer/gamearea-vi
     EditProfileComponent,
     GameInfoComponent,
     GameareaViewerComponent,
+    GameareaDrawerComponent,
   ],
   imports: [
     BrowserModule,
@@ -39,7 +41,8 @@ import { GameareaViewerComponent } from './game-info/gamearea-viewer/gamearea-vi
     BrowserAnimationsModule,
     MaterialModule,
     AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyCHzBSzavSY29YBL4mJE-oWbfPBdxluKYw'
+      apiKey: 'AIzaSyCHzBSzavSY29YBL4mJE-oWbfPBdxluKYw',
+      libraries: ['places', 'drawing', 'geometry'],
     })
   ],
   providers: [],

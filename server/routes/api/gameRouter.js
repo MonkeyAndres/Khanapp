@@ -38,7 +38,7 @@ router.get('/:id', (req, res, next) => {
 })
 
 router.post('/', (req, res, next) => {
-    let { title, description, difficulty, date, midddlePos, gameArea } = req.body;
+    let { title, description, difficulty, date, middlePos, gameArea } = req.body;
 
     pickRandonChallenges(difficulty)
     .then(challenges => {
@@ -48,7 +48,7 @@ router.post('/', (req, res, next) => {
             difficulty,
             date,
             challenges,
-            midddlePos,
+            middlePos,
             gameArea,
             creator: req.user._id,
             players: [req.user._id]

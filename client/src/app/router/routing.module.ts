@@ -6,7 +6,7 @@ import { AuthComponent } from '../auth/auth.component';
 import { ProfileComponent } from '../profile/profile.component';
 
 import { CanLogin, UserLogged } from './routing.guards';
-import { GameInfoComponent } from '../game-info/game-info.component';
+import { GameInfoComponent } from '../game/game-info/game-info.component';
 
 const routes: Routes = [
   {path: 'login', component: AuthComponent, canActivate: [CanLogin]},

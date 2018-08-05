@@ -9,7 +9,7 @@ const gameSchema = new Schema({
     description: String,
     difficulty: Number,
     date: Date,
-    midddlePos: {
+    middlePos: {
         type: {
             type: String,
             enum: ['Point'], 

@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { GamesService } from '../services/games.service';
-import { User } from '../services/auth.service';
+import { GamesService } from './../../services/games.service';
 import { LatLngLiteral } from '@agm/core';
 
 @Component({

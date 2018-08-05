@@ -1,0 +1,25 @@
+<h2>Create New Game</h2>
+<form (ngSubmit)="createGame(createGameForm)" #createGameForm="ngForm">
+  <mat-form-field class="full-width">
+    <input matInput placeholder="Title" name="title" [(ngModel)]="title" autocomplete="off" required>
+  </mat-form-field>
+
+  <mat-form-field class="full-width">
+    <textarea matInput placeholder="Description" name="description" [(ngModel)]="description" cdkTextareaAutosize resizeToFitContent="true" required></textarea>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-select placeholder="Difficulty" name="difficulty" [(ngModel)]="difficulty" required>
+      <mat-option [value]="1">Easy</mat-option>
+      <mat-option [value]="2">Medium</mat-option>
+      <mat-option [value]="3">Hard</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <p id="time">Choose a date <input type="datetime-local" name="date" [(ngModel)]="date" required></p>
+
+  <p class="margin">Draw a Game Area:</p>
+  <app-gamearea-drawer></app-gamearea-drawer>
+
+  <button mat-stroked-button color="accent" class="margin">create</button>
+</form>
