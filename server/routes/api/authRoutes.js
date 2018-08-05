@@ -25,14 +25,14 @@ router.post("/login", (req, res, next) => {
     })(req, res, next);
 });
 
-router.post("/logout", function (req, res) {
+router.post("/logout", (req, res) => {
     req.logout();
     res.status(200).json({
         message: 'Success'
     });
 });
 
-router.post("/loggedin", function (req, res) {
+router.post("/loggedin", (req, res) => {
     if (req.isAuthenticated()) {
         return res.status(200).json(req.user);
     }

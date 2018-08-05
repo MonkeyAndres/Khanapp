@@ -1,11 +1,19 @@
 const express = require('express');
 const bcrypt = require('bcrypt');
+const upload = require('../../config/cloudinary');
 const _ = require('lodash');
 const router = express.Router();
+const loggedIn = require('../../middleware/loggedIn');
 
 const User = require('../../models/User');
 
-router.get('/:username', (req, res, next) => {
+const encrypt = (str) => {
+    const salt = bcrypt.genSaltSync(10);
+    const hashStr = bcrypt.hashSync(str, salt);
+    return hashStr;
+}
+
+router.get('/:username', loggedIn, (req, res, next) => {
     User.findOne({username: req.params.username})
     .then(user => {
         res.status(200).json(user);
@@ -16,12 +24,9 @@ router.get('/:username', (req, res, next) => {
 router.post('/', (req, res, next) => {
     const { username, password, email } = req.body;
 
-    const salt = bcrypt.genSaltSync(10);
-    const hashPass = bcrypt.hashSync(password, salt);
-
     const newUser = User({
         username,
-        password: hashPass,
+        password: encrypt(password),
         email
     });
 
@@ -32,22 +37,28 @@ router.post('/', (req, res, next) => {
     .catch(err => next(err));
 });
 
-router.put('/:id', (req, res, next) => {
-    const userId = req.params.id;
-    const { username, password, email } = req.body;
+router.put('/', loggedIn, (req, res, next) => {
+    const userId = req.user._id;
+    const { bio, password, newPassword, email } = req.body;
 
-    let editedUser = { username, password, email };
+    let editedUser = { bio, password, newPassword, email };
     editedUser = _.pickBy(editedUser, _.identity);
+
+    if (bcrypt.compareSync(editedUser.password, req.user.password)){
+        editedUser.password = encrypt(editedUser.newPassword);
+        delete editedUser.newPassword;
+    }
 
     User.findByIdAndUpdate(userId, editedUser, {new: true})
     .then(user => {
         res.status(200).json(user);
     })
     .catch(err => next(err));
+
 })
 
-router.delete('/:id', (req, res, next) => {
-    const userId = req.params.id;
+router.delete('/', loggedIn, (req, res, next) => {
+    const userId = req.user._id;
 
     User.findByIdAndRemove(userId)
     .then(user => {

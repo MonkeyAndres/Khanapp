@@ -30,10 +30,7 @@ router.get('/played/:username', (req, res, next) => {
     .then(user => {
         return Game.find({players: user._id});
     })
-    .then(games => {
-        console.log(games);
-        res.status(200).json(games)
-    })
+    .then(games => res.status(200).json(games))
     .catch(err => next(err));
 })
 
