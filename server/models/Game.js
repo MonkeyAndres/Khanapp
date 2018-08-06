@@ -7,8 +7,11 @@ const Challenge = require('./Challenge');
 const gameSchema = new Schema({
     title: {type: String, required: true, unique: true},
     description: String,
-    difficulty: Number,
     date: Date,
+    
+    difficulty: String,
+    topic: String,
+
     middlePos: {
         type: {
             type: String,
@@ -32,7 +35,23 @@ const gameSchema = new Schema({
         }
     },
     players: [ {type: Schema.Types.ObjectId, ref: "User"} ],
-    challenges: [ {type: Schema.Types.ObjectId, ref: "Challenge"} ],
+    // challenges: [ 
+    //     {
+    //         challenge: {type: Schema.Types.ObjectId, ref: "Challenge"},
+    //         position: {
+    //             type: {
+    //                 type: String,
+    //                 enum: ['Point'], 
+    //                 required: true
+    //             },
+    //             coordinates: {
+    //                 type: [Number],
+    //                 required: true
+    //             }
+    //         }
+    //     }
+    // ],
+    challenges: [{type: Schema.Types.ObjectId, ref: "Challenge"}],
     creator: {type: Schema.Types.ObjectId, ref: "Challenge"}
 })
 

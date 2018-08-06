@@ -1,23 +1,11 @@
 const express = require('express');
 const _ = require('lodash');
 const router = express.Router();
+const utils = require('./utils');
 
 const Game = require('../../models/Game');
 const User = require('../../models/User');
 const Challenges = require('../../models/Challenge');
-
-const pickRandonChallenges = difficulty => {
-    return new Promise((resolve, reject) => {
-        Challenges.find({difficulty}).lean()
-        .then(challenges => {
-            let shuffledChallenges = _.shuffle(challenges)
-            let selectedChallenges = _.take(shuffledChallenges, difficulty*3);
-
-            resolve(_.map(selectedChallenges, '_id'))
-        })
-        .catch(err => reject(err));
-    }
-)}
 
 router.get('/', (req, res, next) => {
     Game.find()
@@ -40,25 +28,34 @@ router.get('/:id', (req, res, next) => {
     .catch(err => next(err));
 })
 
-router.post('/', (req, res, next) => {
-    let { title, description, difficulty, date, middlePos, gameArea } = req.body;
+router.post('/', async (req, res, next) => {
+    let { 
+        title, 
+        description, 
+        difficulty, 
+        date, 
+        middlePos, 
+        numberOfChallenges,
+        topic,
+        gameArea 
+    } = req.body;
 
-    pickRandonChallenges(difficulty)
-    .then(challenges => {
-        const newGame = new Game({
-            title,
-            description,
-            difficulty,
-            date,
-            challenges,
-            middlePos,
-            gameArea,
-            creator: req.user._id,
-            players: [req.user._id]
-        });
+    const challenges = await utils.pickRandonChallenges(numberOfChallenges, topic, difficulty)
 
-        return newGame.save();
-    })
+    const newGame = new Game({
+        title,
+        description,
+        date,
+        difficulty,
+        topic,
+        challenges,
+        middlePos,
+        gameArea,
+        creator: req.user._id,
+        players: [req.user._id]
+    });
+
+    newGame.save()
     .then(game => {
         console.log(game._id);
         User.findByIdAndUpdate(req.user._id, {$push: {createdGames: game._id}})

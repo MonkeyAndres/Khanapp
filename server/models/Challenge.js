@@ -2,10 +2,13 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const challengeSchema = new Schema({
-    title: {type: String, required: true, unique: true},
-    description: String,
-    time: String,
+    category: String,
+    type: String,
     difficulty: String,
+    question: {type: String, required: true, unique: true},
+    correct_answer: String,
+    incorrect_answers: [String],
+    time: String
     // location: {
     //     type: {
     //       type: String, 

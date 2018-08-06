@@ -5,18 +5,55 @@
   </mat-form-field>
 
   <mat-form-field class="full-width">
-    <textarea matInput placeholder="Description" name="description" [(ngModel)]="description" cdkTextareaAutosize resizeToFitContent="true" required></textarea>
+    <textarea matInput placeholder="Description" name="description" [(ngModel)]="description" cdkTextareaAutosize resizeToFitContent="true"
+      required></textarea>
   </mat-form-field>
 
-  <mat-form-field>
-    <mat-select placeholder="Difficulty" name="difficulty" [(ngModel)]="difficulty" required>
-      <mat-option [value]="1">Easy</mat-option>
-      <mat-option [value]="2">Medium</mat-option>
-      <mat-option [value]="3">Hard</mat-option>
+  <mat-form-field class="full-width">
+    <mat-select placeholder="Topic" name="topic" [(ngModel)]="topic" required>
+      <mat-option [value]="0">Any Category</mat-option>
+      <mat-option [value]="9">General Knowledge</mat-option>
+      <mat-option [value]="10">Entertainment: Books</mat-option>
+      <mat-option [value]="11">Entertainment: Film</mat-option>
+      <mat-option [value]="12">Entertainment: Music</mat-option>
+      <mat-option [value]="13">Entertainment: Musicals &amp; Theatres</mat-option>
+      <mat-option [value]="14">Entertainment: Television</mat-option>
+      <mat-option [value]="15">Entertainment: Video Games</mat-option>
+      <mat-option [value]="16">Entertainment: Board Games</mat-option>
+      <mat-option [value]="17">Science &amp; Nature</mat-option>
+      <mat-option [value]="18">Science: Computers</mat-option>
+      <mat-option [value]="19">Science: Mathematics</mat-option>
+      <mat-option [value]="20">Mythology</mat-option>
+      <mat-option [value]="21">Sports</mat-option>
+      <mat-option [value]="22">Geography</mat-option>
+      <mat-option [value]="23">History</mat-option>
+      <mat-option [value]="24">Politics</mat-option>
+      <mat-option [value]="25">Art</mat-option>
+      <mat-option [value]="26">Celebrities</mat-option>
+      <mat-option [value]="27">Animals</mat-option>
+      <mat-option [value]="28">Vehicles</mat-option>
+      <mat-option [value]="29">Entertainment: Comics</mat-option>
+      <mat-option [value]="30">Science: Gadgets</mat-option>
+      <mat-option [value]="31">Entertainment: Japanese Anime &amp; Manga</mat-option>
+      <mat-option [value]="32">Entertainment: Cartoon &amp; Animations</mat-option>
     </mat-select>
   </mat-form-field>
 
-  <p id="time">Choose a date <input type="datetime-local" name="date" [(ngModel)]="date" required></p>
+  <mat-form-field class="full-width">
+    <mat-select placeholder="Difficulty" name="difficulty" [(ngModel)]="difficulty" required>
+      <mat-option value="easy">Easy</mat-option>
+      <mat-option value="medium">Medium</mat-option>
+      <mat-option value="hard">Hard</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field class="full-width">
+    <input matInput placeholder="Number of Challenges" name="numberOfChallenges" [(ngModel)]="numberOfChallenges" required>
+  </mat-form-field>
+
+  <p id="time">Choose a date
+    <input type="datetime-local" name="date" [(ngModel)]="date" required class="full-width">
+  </p>
 
   <p class="margin">Draw a Game Area:</p>
   <app-gamearea-drawer></app-gamearea-drawer>

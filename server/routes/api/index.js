@@ -9,7 +9,7 @@ const authRoutes = require('./authRoutes');
 
 router.use('/user', userRouter);
 router.use('/game', loggedIn, gameRouter);
-router.use('/challenge/', loggedIn, challengeRouter);
+// router.use('/challenge/', loggedIn, challengeRouter);
 router.use('/auth', authRoutes);
 
 module.exports = router;
