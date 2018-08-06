@@ -7,12 +7,12 @@
         [dynamicHeight]="true">
     <mat-tab label="Profile">
       <app-profile-info [user]="auth.user" *ngIf="!editProfile"></app-profile-info>
-      <app-edit-profile [user]="auth.user" *ngIf="editProfile"></app-edit-profile>
+      <app-edit-profile [user]="auth.user" *ngIf="editProfile" (done)="updateProfile()"></app-edit-profile>
     </mat-tab>
 
     <mat-tab label="Created Khanas">
       <app-game-list [games]="createdGames" [type]="'Created'" *ngIf="!createGame"></app-game-list>
-      <app-create-game *ngIf="createGame"></app-create-game>
+      <app-create-game *ngIf="createGame" (done)="updateProfile()"></app-create-game>
     </mat-tab>
 
     <mat-tab label="Played Khanas">

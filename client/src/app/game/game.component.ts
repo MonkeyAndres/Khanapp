@@ -11,6 +11,7 @@ export class GameComponent implements OnInit, AfterContentInit {
 
   @ViewChild('search') searchElement: ElementRef;
   results: any;
+  message: string;
 
   constructor(
     private mapsAPILoader: MapsAPILoader,
@@ -55,9 +56,13 @@ export class GameComponent implements OnInit, AfterContentInit {
   getNearGames(coords) {
     this.results = null;
     this.gameService.findNear(coords)
-      .subscribe(data => {
-        console.log(data);
-        this.results = data;
+      .subscribe((data: Array<any>) => {
+        if (data.length > 0) {
+          this.results = data;
+          this.message = '';
+        } else {
+          this.message = 'There\'s no places near to you';
+        }
       });
   }
 }

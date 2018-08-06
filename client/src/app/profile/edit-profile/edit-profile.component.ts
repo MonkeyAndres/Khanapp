@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { PlayerService } from '../../services/player.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -15,6 +15,7 @@ const URL = `${environment.BASEURL}/api/user`;
 export class EditProfileComponent implements OnInit {
 
   @Input() user: any;
+  @Output() done = new EventEmitter<void>();
 
   username: string;
   bio: string;
@@ -33,8 +34,8 @@ export class EditProfileComponent implements OnInit {
     this.uploader.uploadAll();
 
     this.playerService.edit(player).subscribe(data => {
+      this.done.emit();
       this.snackBar.open('Profile Edited', '', { duration: 2000 });
-      form.reset();
     });
   }
 }
