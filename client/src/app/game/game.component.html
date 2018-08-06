@@ -1,0 +1,20 @@
+<app-navbar [title]="'Find Khanas'"></app-navbar>
+
+<div class="container">
+  <h3 *ngIf="!results">Find Khanas <br> close to you</h3>  
+
+  <div class="searchBox">
+    <mat-form-field id="searchBox">
+        <input matInput #search type="text" placeholder="Location" autocorrect="off" autocapitalize="off" spellcheck="off" [(ngModel)]="query">
+        <button mat-button *ngIf="query" matSuffix mat-icon-button aria-label="Clear" (click)="query=''">
+          <mat-icon>close</mat-icon>
+        </button>
+    </mat-form-field>
+
+    <button mat-icon-button (click)="geolocate()">
+      <mat-icon>my_location</mat-icon>
+    </button>
+  </div>
+
+  <app-game-list [games]="results" [type]="'Found'" *ngIf="results"></app-game-list>
+</div>

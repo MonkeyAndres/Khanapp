@@ -36,4 +36,6 @@ const gameSchema = new Schema({
     creator: {type: Schema.Types.ObjectId, ref: "Challenge"}
 })
 
+gameSchema.index({middlePos: '2dsphere'});
+
 module.exports = mongoose.model('Game', gameSchema);

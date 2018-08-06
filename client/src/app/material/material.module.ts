@@ -2,9 +2,9 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 // Material Stuff
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { MatToolbarModule } from '@angular/material/toolbar';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatInputModule} from '@angular/material/input';
+import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatCardModule} from '@angular/material/card';
 import {MatButtonModule} from '@angular/material/button';
 import {MatTabsModule} from '@angular/material/tabs';
@@ -16,24 +16,11 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatSelectModule} from '@angular/material/select';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatNativeDateModule} from '@angular/material';
+import {MatDialogModule, MAT_DIALOG_DEFAULT_OPTIONS} from '@angular/material/dialog';
 
 @NgModule({
   imports: [
-    CommonModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatToolbarModule,
-    MatCardModule,
-    MatButtonModule,
-    MatTabsModule,
-    MatListModule,
-    MatIconModule,
-    MatMenuModule,
-    MatExpansionModule,
-    MatSnackBarModule,
-    MatSelectModule,
-    MatDatepickerModule,
-    MatNativeDateModule
+    CommonModule
   ],
   exports: [
     MatFormFieldModule,
@@ -49,8 +36,9 @@ import {MatNativeDateModule} from '@angular/material';
     MatSnackBarModule,
     MatSelectModule,
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    MatDialogModule
   ],
-  declarations: []
+  declarations: [],
 })
 export class MaterialModule { }

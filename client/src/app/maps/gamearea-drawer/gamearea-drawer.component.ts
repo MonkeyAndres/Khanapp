@@ -25,7 +25,6 @@ export class GameareaDrawerComponent implements OnInit {
     this.mapsAPILoader.load()
     .then(() => {
       navigator.geolocation.getCurrentPosition((position) => {
-        console.log('Got position', position.coords);
         const lat = position.coords.latitude;
         const lng = position.coords.longitude;
 

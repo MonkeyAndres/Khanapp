@@ -46,8 +46,7 @@
   </div>
 
   <div class="button-row">
-    <button mat-raised-button color="accent">Join Game</button>
-    <button mat-raised-button color="accent" *ngIf="false">Edit Game</button>
-    <button mat-raised-button color="accent" *ngIf="false">Delete Game</button>
+    <button mat-raised-button color="accent" *ngIf="!alreadyJoined" (click)="joinGame()">Join Game</button>
+    <button mat-raised-button color="accent" *ngIf="owner" (click)="deleteGame()">Delete Game</button>
   </div>
 </div>

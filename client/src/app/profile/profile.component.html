@@ -10,12 +10,12 @@
       <app-edit-profile [user]="auth.user" *ngIf="editProfile"></app-edit-profile>
     </mat-tab>
 
-    <mat-tab label="Created Games">
+    <mat-tab label="Created Khanas">
       <app-game-list [games]="createdGames" [type]="'Created'" *ngIf="!createGame"></app-game-list>
       <app-create-game *ngIf="createGame"></app-create-game>
     </mat-tab>
 
-    <mat-tab label="Played Games">
+    <mat-tab label="Played Khanas">
       <app-game-list [games]="playedGames" [type]="'Played'"></app-game-list>
     </mat-tab>
   </mat-tab-group>

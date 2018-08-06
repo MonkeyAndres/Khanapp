@@ -97,6 +97,26 @@ router.delete('/:id', (req, res, next) => {
     .catch(err => next(err));
 })
 
+router.post('/near', (req, res, next) => {
+    const { coordinates } = req.body;
+
+    const query = {
+        middlePos: {
+            $near : {
+                $geometry: { type: "Point",  coordinates },
+                $maxDistance: 5000
+            }
+        }
+    }
+
+    Game.find(query)
+    .then(data => {
+        console.log(data)
+        res.status(200).json(data);
+    })
+    .catch(err => next(err))
+})
+
 router.post('/:gameId/:playerId', (req, res, next) => {
     const { gameId, playerId } = req.params;
 
