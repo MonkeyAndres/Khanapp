@@ -111,7 +111,6 @@ router.post('/near', (req, res, next) => {
 
     Game.find(query)
     .then(data => {
-        console.log(data)
         res.status(200).json(data);
     })
     .catch(err => next(err))
