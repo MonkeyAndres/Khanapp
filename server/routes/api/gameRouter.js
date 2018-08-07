@@ -24,10 +24,7 @@ router.get('/next', (req, res, next) => {
     }
 
     Game.find(query)
-    .then(games => {
-        console.log(games);
-        res.status(200).json(games)
-    })
+    .then(games => res.status(200).json(games))
     .catch(err => next(err))
 })
 

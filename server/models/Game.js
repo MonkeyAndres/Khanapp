@@ -9,6 +9,7 @@ const gameSchema = new Schema({
     description: String,
     date: Date,
     
+    status: {type: Boolean, default: false},
     difficulty: String,
     topic: String,
 

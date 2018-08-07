@@ -12,6 +12,8 @@ const passport = require('passport');
 const configure = require('./config/passport.js');
 const cors = require('cors');
 
+const khanaServer = require('./socket.io/khanaServer');
+
 const indexRouter = require('./routes/index');
 const apiRouter = require('./routes/api');
 
