@@ -1,9 +1,11 @@
 const express = require('express');
 const _ = require('lodash');
 const moment = require('moment');
+const schedule = require('node-schedule');
 
 const router = express.Router();
 const utils = require('./utils');
+const sendNotification = require('../../socket.io/notifications');
 
 const Game = require('../../models/Game');
 const User = require('../../models/User');
@@ -75,6 +77,11 @@ router.post('/', async (req, res, next) => {
         console.log(game._id);
         User.findByIdAndUpdate(req.user._id, {$push: {createdGames: game._id}})
         .then(user => {
+            schedule.scheduleJob(game.date, function(game){
+                console.log(`${game.title} Khana has started!`);
+                sendNotification(game);
+            }.bind(this, game));
+
             res.status(200).json(game);
         })
         .catch(err => next(err));

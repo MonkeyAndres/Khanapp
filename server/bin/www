@@ -22,8 +22,8 @@ app.set('port', port);
  */
 
 var server = http.createServer(app);
-var io = socketIO(server);
-khanaServer(io);
+global.io = socketIO(server);
+khanaServer();
 
 /**
  * Listen on provided port, on all network interfaces.

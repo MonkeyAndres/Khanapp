@@ -1,0 +1,20 @@
+<app-navbar [title]="'GameBoard'"></app-navbar>
+
+<mat-tab-group *ngIf="game" [color]="'primary'" [backgroundColor]="'primary'" [dynamicHeight]="true">
+  <mat-tab>
+    <ng-template mat-tab-label>
+      <mat-icon class="tab-icon">map</mat-icon>
+      Map
+    </ng-template>
+    
+    <app-gamearea-viewer [gameAreaCoords]="game.gameArea.coordinates" [middlePoint]="game.middlePos.coordinates" [mapHeight]="innerHeight"></app-gamearea-viewer>
+  </mat-tab>
+
+  <mat-tab>
+    <ng-template mat-tab-label>
+      <mat-icon class="tab-icon">chat</mat-icon>
+      Chat
+    </ng-template>
+    <h2>Hello</h2>
+  </mat-tab>
+</mat-tab-group>

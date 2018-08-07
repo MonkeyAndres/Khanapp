@@ -10,6 +10,7 @@ export class GameareaViewerComponent implements OnInit {
 
   @Input() gameAreaCoords;
   @Input() middlePoint;
+  @Input() mapHeight = '270px';
 
   middle: any;
   coordinates: Array<LatLngLiteral>;
@@ -26,7 +27,7 @@ export class GameareaViewerComponent implements OnInit {
     const LAT = 1;
     const result: Array<LatLngLiteral> = [];
 
-    if (geoJson.length === 2){
+    if (geoJson.length === 2) {
       return {lng: geoJson[LNG], lat: geoJson[LAT]};
     }
 
@@ -37,4 +38,3 @@ export class GameareaViewerComponent implements OnInit {
     return result;
   }
 }
-

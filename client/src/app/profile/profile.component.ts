@@ -31,8 +31,9 @@ export class ProfileComponent implements OnInit {
   updateProfile() {
     this.editProfile = false;
     this.createGame = false;
-    this.auth.isLogged().subscribe();
-    this.ngOnInit();
+    this.auth.isLogged().subscribe(data => {
+      this.ngOnInit();
+    });
   }
 
   tabChanged(tabGroup) {

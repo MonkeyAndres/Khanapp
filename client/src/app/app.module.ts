@@ -22,6 +22,7 @@ import { GameareaDrawerComponent } from './maps/gamearea-drawer/gamearea-drawer.
 import { FileUploadModule } from 'ng2-file-upload';
 import { FindGameComponent } from './game-components/find-game/find-game.component';
 import { MykhanasComponent } from './mykhanas/mykhanas.component';
+import { GameboardComponent } from './gameboard/gameboard.component';
 
 const MAPS_API_KEY = environment.MAPS_API_KEY;
 
@@ -40,6 +41,7 @@ const MAPS_API_KEY = environment.MAPS_API_KEY;
     GameareaDrawerComponent,
     FindGameComponent,
     MykhanasComponent,
+    GameboardComponent,
   ],
   imports: [
     BrowserModule,

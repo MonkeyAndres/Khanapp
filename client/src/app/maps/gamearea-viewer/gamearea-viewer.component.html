@@ -1,5 +1,4 @@
-<agm-map [latitude]="middle.lat" [longitude]="middle.lng" id="map"
-    [streetViewControl]="false"
-    [mapDraggable]="false" [zoom]="14">
+<agm-map [latitude]="middle.lat" [longitude]="middle.lng" [style.height]="mapHeight"
+    [streetViewControl]="false" [zoom]="14">
   <agm-polygon [paths]="coordinates" [strokeWeight]="3"></agm-polygon>
 </agm-map>

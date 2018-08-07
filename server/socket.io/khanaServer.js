@@ -16,7 +16,7 @@ var sessionMiddleware = session({
     })
 });
 
-const khanaServer = async (io) => {
+const khanaServer = async () => {
 
     console.log('Socket IO Started!!');
 
@@ -27,24 +27,18 @@ const khanaServer = async (io) => {
     io.on("connection", async (socket) => {
         const userId = socket.request.session.passport.user;
 
-        const game = await getGame(userId);
-        
-        if (game) { sendNotification(socket, game) }
+        const games = await getGames(userId);
+
+        for(let game of games){
+            socket.join(game.title);
+            console.log(`${userId} joined ${game.title}`);
+        }
     });
-
-    // socket.emit('chatMessageToGuapo','hola');
-
-    // // Receive the message
-    // socket.on('chatMessageToGuapo', data => {
-    //     console.log(data)
-    //     console.log("Ho!");
-    //     socket.broadcast.emit('chatMessageToGuapo',data);
-    // });
 };
 
-const getGame = async (userId) => {
+const getGames = async (userId) => {
     const today = moment();
-    const endDate = moment().add(10, 'minutes');
+    const endDate = moment().add(1, 'week');
 
     const query = {
         players: userId,
@@ -54,23 +48,8 @@ const getGame = async (userId) => {
         }
     }
 
-    const game = await Game.findOne(query);
-    if (game) { changeGameStatus(game) }
-
+    const game = await Game.find(query);
     return game;
-}
-
-const changeGameStatus = async (game) => {
-    Game.findByIdAndUpdate(game._id, {status: true})
-    .then(data => console.log('Now Game is Active!'));
-}
-
-const sendNotification = (socket, game) => {
-    socket.emit('sendNotification', {
-        title: `You have to join a Khana!!`,
-        body: 'In less than 10 minutes you have a Khana.',
-        link: `/gameboard/${game._id}`
-    });
 }
 
 module.exports = khanaServer;

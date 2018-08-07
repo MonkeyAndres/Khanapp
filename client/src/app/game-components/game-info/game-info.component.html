@@ -48,5 +48,6 @@
   <div class="button-row">
     <button mat-raised-button color="accent" *ngIf="!alreadyJoined" (click)="joinGame()">Join Game</button>
     <button mat-raised-button color="accent" *ngIf="owner" (click)="deleteGame()">Delete Game</button>
+    <button mat-raised-button color="accent" [routerLink]="['/gameboard', game._id]" *ngIf="game.status">GameBoard</button>
   </div>
 </div>
