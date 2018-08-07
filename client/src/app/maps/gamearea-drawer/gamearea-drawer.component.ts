@@ -30,27 +30,20 @@ export class GameareaDrawerComponent implements OnInit {
 
         this.map = new google.maps.Map(this.gmapElement.nativeElement, {
           center: {lat, lng},
+          streetViewControl: false,
+          mapTypeControl: false,
           zoom: 12,
         });
 
         const drawingManager = new google.maps.drawing.DrawingManager({
-          drawingMode: google.maps.drawing.OverlayType.MARKER,
+          drawingMode: google.maps.drawing.OverlayType.POLYGON,
           drawingControl: true,
           drawingControlOptions: {
-            position: google.maps.ControlPosition.TOP_CENTER,
-            drawingModes: ['polygon']
-          },
-          circleOptions: {
-            fillColor: '#ffff00',
-            fillOpacity: 1,
-            strokeWeight: 5,
-            clickable: false,
-            editable: true,
-            zIndex: 1
+            drawingModes: [google.maps.drawing.OverlayType.POLYGON]
           }
         });
         drawingManager.setMap(this.map);
-    
+
         google.maps.event.addListener(drawingManager, 'polygoncomplete', this.polygonGetPaths.bind(this));
       });
     });
