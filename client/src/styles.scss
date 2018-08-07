@@ -16,7 +16,7 @@ html{background: rgba(0,0,0,.03);}
 img{width: 100%}
 a{text-decoration: none; color: #ff4081}
 button{font-weight: bold; text-transform: uppercase}
-body{min-height: 100vh}
+// body{min-height: 100vh}
 
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
 
@@ -27,10 +27,7 @@ body{min-height: 100vh}
 }
 
 // .mat-tab-body-wrapper{
-//     position: absolute !important;
-//     top: 104px;
-//     bottom: 0;
-//     width: 100%; 
+//     height: calc(100vh - 56px - 48px);
 // }
 
 .mat-tab-body{

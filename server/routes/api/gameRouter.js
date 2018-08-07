@@ -1,11 +1,12 @@
 const express = require('express');
 const _ = require('lodash');
+const moment = require('moment');
+
 const router = express.Router();
 const utils = require('./utils');
 
 const Game = require('../../models/Game');
 const User = require('../../models/User');
-const Challenges = require('../../models/Challenge');
 
 router.get('/', (req, res, next) => {
     Game.find()
@@ -13,10 +14,27 @@ router.get('/', (req, res, next) => {
     .catch(err => next(err));
 })
 
+router.get('/next', (req, res, next) => {
+    const today = moment();
+    const endDate = moment().add(1, 'week'); 
+
+    const query = {
+        players: req.user._id,
+        date: {"$gte": today.toDate(), "$lt": endDate.toDate()}
+    }
+
+    Game.find(query)
+    .then(games => {
+        console.log(games);
+        res.status(200).json(games)
+    })
+    .catch(err => next(err))
+})
+
 router.get('/played/:username', (req, res, next) => {
     User.findOne({ username: req.params.username })
     .then(user => {
-        return Game.find({players: user._id});
+        return Game.find({players: user._id, date: {"$lt": moment().toDate()}});
     })
     .then(games => res.status(200).json(games))
     .catch(err => next(err));

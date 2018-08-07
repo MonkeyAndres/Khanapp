@@ -6,14 +6,14 @@ import { AuthComponent } from '../auth/auth.component';
 import { ProfileComponent } from '../profile/profile.component';
 
 import { CanLogin, UserLogged } from './routing.guards';
-import { GameInfoComponent } from '../game/game-info/game-info.component';
-import { GameComponent } from '../game/game.component';
+import { GameInfoComponent } from '../game-components/game-info/game-info.component';
+import { MykhanasComponent } from '../mykhanas/mykhanas.component';
 
 const routes: Routes = [
   {path: 'login', component: AuthComponent, canActivate: [CanLogin]},
   {path: 'signup', component: AuthComponent, canActivate: [CanLogin]},
 
-  {path: 'khanas', component: GameComponent, canActivate: [UserLogged]},
+  {path: 'khanas', component: MykhanasComponent, canActivate: [UserLogged]},
   {path: 'profile', component: ProfileComponent, canActivate: [UserLogged]},
   {path: 'game/info/:id', component: GameInfoComponent, canActivate: [UserLogged]},
 ];

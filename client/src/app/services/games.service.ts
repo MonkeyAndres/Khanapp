@@ -32,6 +32,10 @@ export class GamesService implements CRUD {
     return this.http.get(`${this.BASEURL}/api/game/played/${username}`, this.options);
   }
 
+  getNext() {
+    return this.http.get(`${this.BASEURL}/api/game/next`, this.options);
+  }
+
   findNear(coords) {
     const coordinates = [coords.longitude, coords.latitude];
     return this.http.post(`${this.BASEURL}/api/game/near/`, {coordinates}, this.options);

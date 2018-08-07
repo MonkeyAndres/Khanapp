@@ -1,13 +1,13 @@
-import { Component, OnInit, ViewChild, NgZone, AfterContentInit, ElementRef } from '@angular/core';
+import { Component, OnInit, AfterContentInit, ViewChild, ElementRef, NgZone } from '@angular/core';
 import { MapsAPILoader } from '@agm/core';
-import { GamesService } from '../services/games.service';
+import { GamesService } from '../../services/games.service';
 
 @Component({
-  selector: 'app-game',
-  templateUrl: './game.component.html',
-  styleUrls: ['./game.component.scss']
+  selector: 'app-find-game',
+  templateUrl: './find-game.component.html',
+  styleUrls: ['./find-game.component.scss']
 })
-export class GameComponent implements OnInit, AfterContentInit {
+export class FindGameComponent implements OnInit, AfterContentInit {
 
   @ViewChild('search') searchElement: ElementRef;
   results: any;
@@ -61,7 +61,7 @@ export class GameComponent implements OnInit, AfterContentInit {
           this.results = data;
           this.message = '';
         } else {
-          this.message = 'There\'s no places near to you';
+          this.message = 'There\'s no khanas near to you.';
         }
       });
   }

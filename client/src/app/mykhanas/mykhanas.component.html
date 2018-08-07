@@ -1,0 +1,19 @@
+<app-navbar [title]="'My Khanas'"></app-navbar>
+
+<mat-tab-group [color]="'primary'" [backgroundColor]="'primary'" #tabGroup [dynamicHeight]="true">
+  <mat-tab>
+    <ng-template mat-tab-label>
+      <mat-icon class="tab-icon">search</mat-icon>
+      Search Khanas
+    </ng-template>
+    <app-find-game></app-find-game>
+  </mat-tab>
+
+  <mat-tab>
+    <ng-template mat-tab-label>
+      <mat-icon class="tab-icon">list</mat-icon>
+      Next Week Khanas
+    </ng-template>
+    <app-game-list [games]="nextGames" [type]="'Next'"></app-game-list>
+  </mat-tab>
+</mat-tab-group>

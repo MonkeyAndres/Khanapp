@@ -9,6 +9,7 @@ export class GameListComponent implements OnInit {
 
   @Input() games: Array<any>;
   @Input() type: string;
+  message: string;
 
   constructor() { }
 
