@@ -1,7 +1,9 @@
+import { LatLngLiteral } from '@agm/core';
 import { Component, OnInit } from '@angular/core';
 import * as moment from 'moment';
 import { GamesService } from '../services/games.service';
 import { ActivatedRoute } from '@angular/router';
+import { SocketService } from '../services/socket.service';
 
 @Component({
   selector: 'app-gameboard',
@@ -12,22 +14,62 @@ export class GameboardComponent implements OnInit {
 
   gameId: string;
   game: any;
-  innerHeight: string;
+  mapHeight: string;
+  socket: any;
 
   constructor(
     public gameService: GamesService,
+    public socketService: SocketService,
     public route: ActivatedRoute
   ) { }
 
   ngOnInit() {
-    this.innerHeight = (window.screen.height - 48 - 28 - 56) + 'px';
+    this.socket = this.socketService.socket;
+
+    this.mapHeight = (window.screen.height - 48 - 28 - 60) + 'px';
 
     this.route.params.subscribe(params => (this.gameId = params.id));
 
+    this.socket.on('getPositions', this.activatePositionTracker.bind(this));
+    this.socket.on('usersPosition', this.addToUsersPosition.bind(this));
+
     this.gameService.getOne(this.gameId)
-      .subscribe(game => {
-        this.game = game;
-      });
+    .subscribe(game => {
+      this.game = game;
+      this.socketService.joinGameboard(this.game.title);
+    });
   }
 
+  addToUsersPosition(username, coords) {
+    this.gameService.userPositions[username] = coords;
+    console.log(this.gameService.userPositions);
+  }
+
+  activatePositionTracker() {
+    console.log('Activating User Position Tracker...');
+
+    const options = {
+        enableHighAccuracy: false,
+        timeout: 5000,
+        maximumAge: 0
+    };
+
+    navigator.geolocation.watchPosition(this.sendPositionToBack.bind(this), this.errorTracker, options);
+  }
+
+  sendPositionToBack(pos) {
+    const coords: LatLngLiteral = {
+      lat: pos.coords.latitude,
+      lng: pos.coords.longitude,
+    };
+
+    const room = this.game.title;
+
+    console.log(`> User is at: `, coords);
+    this.socket.emit('position', coords, room);
+  }
+
+  errorTracker(err) {
+    console.log(`Error: ${err}`);
+  }
 }

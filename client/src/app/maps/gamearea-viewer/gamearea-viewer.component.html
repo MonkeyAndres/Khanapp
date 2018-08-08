@@ -1,4 +1,9 @@
 <agm-map [latitude]="middle.lat" [longitude]="middle.lng" [style.height]="mapHeight"
     [streetViewControl]="false" [zoom]="14">
+
   <agm-polygon [paths]="coordinates" [strokeWeight]="3"></agm-polygon>
+
+  <agm-marker *ngFor="let user of gameService.userPositions | keyvalue" [latitude]="user.value.lat" [longitude]="user.value.lng" [iconUrl]="{url: 'https://www.shareicon.net/download/2017/05/09/885769_user.ico', scaledSize: {height: 30, width: 30}}">
+    <agm-info-window>{{user.key}}</agm-info-window>
+  </agm-marker>
 </agm-map>

@@ -10,6 +10,10 @@ const sendNotification = require('../../socket.io/notifications');
 const Game = require('../../models/Game');
 const User = require('../../models/User');
 
+const changeGameStatus = (gameId) => {
+    return Game.findByIdAndUpdate(gameId, {status: true})
+}
+
 router.get('/', (req, res, next) => {
     Game.find()
     .then(games => res.status(200).json(games))
@@ -77,11 +81,16 @@ router.post('/', async (req, res, next) => {
         console.log(game._id);
         User.findByIdAndUpdate(req.user._id, {$push: {createdGames: game._id}})
         .then(user => {
+            // CronJob makes notification and change game status
             schedule.scheduleJob(game.date, function(game){
-                console.log(`${game.title} Khana has started!`);
-                sendNotification(game);
+                changeGameStatus(game._id)
+                .then(game => {
+                    console.log(`${game.title} Khana has started!`);
+                    sendNotification(game);
+                })
             }.bind(this, game));
 
+            // Response
             res.status(200).json(game);
         })
         .catch(err => next(err));

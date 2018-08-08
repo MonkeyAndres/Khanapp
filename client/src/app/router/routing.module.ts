@@ -11,6 +11,8 @@ import { MykhanasComponent } from '../mykhanas/mykhanas.component';
 import { GameboardComponent } from '../gameboard/gameboard.component';
 
 const routes: Routes = [
+  {path: '', redirectTo: 'profile', pathMatch: 'full'},
+
   {path: 'login', component: AuthComponent, canActivate: [CanLogin]},
   {path: 'signup', component: AuthComponent, canActivate: [CanLogin]},
 

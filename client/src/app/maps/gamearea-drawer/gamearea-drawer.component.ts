@@ -1,7 +1,7 @@
 import { Component, ViewChild, OnInit } from '@angular/core';
 import { Element } from '@angular/compiler';
 import { MapsAPILoader } from '@agm/core';
-import {} from '@types/googlemaps';
+import {} from 'googlemaps';
 
 @Component({
   selector: 'app-gamearea-drawer',

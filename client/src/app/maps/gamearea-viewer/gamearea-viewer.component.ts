@@ -1,5 +1,6 @@
 import { LatLngLiteral } from '@agm/core';
 import { Component, OnInit, Input } from '@angular/core';
+import { GamesService } from '../../services/games.service';
 
 @Component({
   selector: 'app-gamearea-viewer',
@@ -15,7 +16,7 @@ export class GameareaViewerComponent implements OnInit {
   middle: any;
   coordinates: Array<LatLngLiteral>;
 
-  constructor() { }
+  constructor(public gameService: GamesService) { }
 
   ngOnInit() {
     this.middle = this.toLatLngLiteral(this.middlePoint);
