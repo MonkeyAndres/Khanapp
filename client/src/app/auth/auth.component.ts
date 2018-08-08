@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../services/auth.service';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
+import { GamesService } from '../services/games.service';
+import { SocketService } from '../services/socket.service';
 
 @Component({
   selector: 'app-auth',
@@ -14,7 +16,12 @@ export class AuthComponent implements OnInit {
   message: string;
   newUser: any = {};
 
-  constructor(public auth: AuthService, public router: Router) {}
+  constructor(
+    public auth: AuthService,
+    public router: Router,
+    public gameService: GamesService,
+    public socket: SocketService
+  ) {}
 
   ngOnInit() {
     this.operation = this.router.url.replace('/', '');
@@ -27,7 +34,17 @@ export class AuthComponent implements OnInit {
 
   onSubmit(form: NgForm) {
     if (this.operation === 'login') {
-      this.auth.login(form.value).subscribe(() => this.router.navigate(['/profile']));
+      this.auth.login(form.value).subscribe(() => {
+        // Add user to room (for notifications)
+        this.gameService.getNext()
+        .subscribe((data: Array<any>) => {
+          for (const game of data) {
+            this.socket.joinRoom(game.title);
+          }
+          // Redirect Profile
+          this.router.navigate(['/profile']);
+        });
+      });
     } else {
       this.auth.signup(form.value).subscribe(() => this.router.navigate(['/profile']));
     }

@@ -37,37 +37,38 @@ const khanaServer = async () => {
 
         const user = await User.findById(userId);
 
-        const games = await getGames(userId);
+        // const games = await getGames(userId);
 
-        for(let game of games){
-            await joinRoom(game.title, socket, user.username);
-        }
+        // for(let game of games){
+        //     await joinRoom(game.title, socket, user.username);
+        // }
 
+        socket.on('joinRoom', (room) => joinRoom(room, socket));
         socket.on('joinGameboard', joinGameboard.bind(null, user.username, socket));
         socket.on('position', sendPositionToRoom.bind(null, user.username));
     });
 };
 
-const joinRoom = async (room, socket, username) => {
+const joinRoom = async (room, socket) => {
     await socket.join(room);
-    console.log(`> ${username} joined ${room} Room.`);
+    console.log(`> ${socket.id} joined ${room} Room.`);
 }
 
-const getGames = async (userId) => {
-    const today = moment();
-    const endDate = moment().add(1, 'week');
+// const getGames = async (userId) => {
+//     const today = moment();
+//     const endDate = moment().add(1, 'week');
 
-    const query = {
-        players: userId,
-        date: {
-            "$gte": today.toDate(),
-            "$lt": endDate.toDate()
-        }
-    }
+//     const query = {
+//         players: userId,
+//         date: {
+//             "$gte": today.toDate(),
+//             "$lt": endDate.toDate()
+//         }
+//     }
 
-    const game = await Game.find(query);
-    return game;
-}
+//     const game = await Game.find(query);
+//     return game;
+// }
 
 const joinGameboard = async (userId, socket, room) => {
     await joinRoom(room, socket, userId);

@@ -50,7 +50,7 @@ export class GameboardComponent implements OnInit {
 
     const options = {
         enableHighAccuracy: false,
-        timeout: 5000,
+        timeout: 30000,
         maximumAge: 0
     };
 

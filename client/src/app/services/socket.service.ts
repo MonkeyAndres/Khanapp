@@ -20,6 +20,10 @@ export class SocketService {
     this.socket.on('sendNotification', this.createNotification);
   }
 
+  joinRoom(room) {
+    this.socket.emit('joinRoom', room);
+  }
+
   createNotification(data) {
     Push.create(data.title, {
         body: data.body,

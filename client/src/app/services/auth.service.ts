@@ -15,7 +15,7 @@ export interface User {
 export class AuthService {
   user: any;
   BASEURL: string = environment.BASEURL;
-  options: object = {withCredentials: true, responseType: 'text'};
+  options: object = {withCredentials: true};
 
   constructor(public http: HttpClient) {
     // this.isLogged().subscribe(
