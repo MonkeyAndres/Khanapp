@@ -27,15 +27,15 @@ const khanaServer = async () => {
 
     io.on("connection", async (socket) => {
         let userId;
+        let user;
 
         try{
             userId = socket.request.session.passport.user;
+            user = await User.findById(userId);
         } catch (err) {
             console.log('Can\'t found the user.');
             return;
         }
-
-        const user = await User.findById(userId);
 
         // const games = await getGames(userId);
 
@@ -51,6 +51,7 @@ const khanaServer = async () => {
 
 const joinRoom = async (room, socket) => {
     await socket.join(room);
+    io.sockets.adapter.rooms[room].positions = {};
     console.log(`> ${socket.id} joined ${room} Room.`);
 }
 
@@ -72,13 +73,17 @@ const joinRoom = async (room, socket) => {
 
 const joinGameboard = async (userId, socket, room) => {
     await joinRoom(room, socket, userId);
-    io.in(room).emit('getPositions', '');
+    io.in(room).emit('getPositions');
     console.log(`> ${userId} has joined the game ${room}.`);
 }
 
 const sendPositionToRoom = (username, coords, room) => {
-    io.in(room).emit('usersPosition', username, coords);
-    console.log(`> ${username} is in position `, coords);
+    // console.log(io.sockets.adapter.rooms[room].positions);
+    const positions = io.sockets.adapter.rooms[room].positions;
+    positions[username] = coords;
+
+    io.in(room).emit('usersPosition', positions);
+    console.log(`> ${room} positions \n`, positions);
 }
 
 module.exports = khanaServer;

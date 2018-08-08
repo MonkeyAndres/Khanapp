@@ -40,8 +40,8 @@ export class GameboardComponent implements OnInit {
     });
   }
 
-  addToUsersPosition(username, coords) {
-    this.gameService.userPositions[username] = coords;
+  addToUsersPosition(positions) {
+    this.gameService.userPositions = positions;
     console.log(this.gameService.userPositions);
   }
 
@@ -49,8 +49,8 @@ export class GameboardComponent implements OnInit {
     console.log('Activating User Position Tracker...');
 
     const options = {
-        enableHighAccuracy: false,
-        timeout: 30000,
+        enableHighAccuracy: true,
+        timeout: 5000,
         maximumAge: 0
     };
 
@@ -70,6 +70,6 @@ export class GameboardComponent implements OnInit {
   }
 
   errorTracker(err) {
-    console.log(`Error: ${err}`);
+    console.log(`Error: `, err);
   }
 }
