@@ -6,15 +6,15 @@
 
     <form (ngSubmit)="onSubmit(authForm)" #authForm="ngForm">
       <mat-form-field>
-        <input matInput placeholder="Username" [(ngModel)]="username" name="username" autocomplete="off">
+        <input matInput placeholder="Username" [(ngModel)]="newUser.username" name="username" autocomplete="off">
       </mat-form-field>
 
       <mat-form-field *ngIf="operation == 'signup'">
-        <input matInput placeholder="Email" [(ngModel)]="email" name="email">
+        <input matInput placeholder="Email" [(ngModel)]="newUser.email" name="email">
       </mat-form-field>
 
       <mat-form-field>
-        <input matInput placeholder="Password" [(ngModel)]="password" name="password" type="password">
+        <input matInput placeholder="Password" [(ngModel)]="newUser.password" name="password" type="password">
       </mat-form-field>
 
       <span>{{message}} have an account? <a href="#" (click)="changeForm($event)">{{inverseOperation}}</a></span> <br><br>

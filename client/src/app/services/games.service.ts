@@ -8,7 +8,7 @@ import { environment } from '../../environments/environment';
 })
 export class GamesService implements CRUD {
   BASEURL: string = environment.BASEURL;
-  options: object = {withCredentials: true};
+  options: object = {withCredentials: true, responseType: 'text'};
   userPositions: object = {};
 
   constructor(public http: HttpClient) { }

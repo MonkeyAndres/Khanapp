@@ -13,28 +13,28 @@
         </div>
 
       <mat-form-field class="full-width">
-        <input matInput placeholder="Username" name="username" [(ngModel)]="username" disabled>
+        <input matInput placeholder="Username" name="username" [(ngModel)]="editedUser.username" disabled>
       </mat-form-field>
 
       <mat-form-field class="full-width">
-        <textarea matInput placeholder="Biography" name="bio" [(ngModel)]="bio" id="bio" cdkTextareaAutosize resizeToFitContent="true"></textarea>
+        <textarea matInput placeholder="Biography" name="bio" [(ngModel)]="editedUser.bio" id="bio" cdkTextareaAutosize resizeToFitContent="true"></textarea>
       </mat-form-field>
       <button mat-stroked-button color="accent">save</button>
     </form>
 
   </mat-expansion-panel>
 
-  <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+  <mat-expansion-panel>
     <mat-expansion-panel-header>
       <mat-panel-title>Change Password</mat-panel-title>
     </mat-expansion-panel-header>
 
     <form (ngSubmit)="editInfo(passwordForm)" #passwordForm="ngForm">
       <mat-form-field class="full-width">
-        <input matInput placeholder="Current Password" name="password" [(ngModel)]="password" type="password" required>
+        <input matInput placeholder="Current Password" name="password" [(ngModel)]="editedUser.password" type="password" required>
       </mat-form-field>
       <mat-form-field class="full-width">
-        <input matInput placeholder="New Password" name="newPassword" [(ngModel)]="newPassword" type="password" required>
+        <input matInput placeholder="New Password" name="newPassword" [(ngModel)]="editedUser.newPassword" type="password" required>
       </mat-form-field>
       <button mat-stroked-button color="accent">Change</button>
     </form>

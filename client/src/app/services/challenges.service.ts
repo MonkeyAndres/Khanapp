@@ -8,7 +8,7 @@ import { CRUD } from './crud.interface';
 })
 export class ChallengesService implements CRUD {
   BASEURL: string = environment.BASEURL;
-  options: object = {withCredentials: true};
+  options: object = {withCredentials: true, responseType: 'text'};
 
   constructor(public http: HttpClient) { }
 

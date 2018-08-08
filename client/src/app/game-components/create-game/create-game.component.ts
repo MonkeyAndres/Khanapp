@@ -14,6 +14,7 @@ export class CreateGameComponent implements OnInit {
   @ViewChild(GameareaDrawerComponent) gameArea;
   @Output() done = new EventEmitter<void>();
   message: string;
+  newGame: any = {};
 
   constructor(public game: GamesService, public router: Router) { }
 

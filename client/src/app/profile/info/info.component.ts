@@ -9,7 +9,7 @@ import { NgForm } from '@angular/forms';
 })
 export class InfoComponent implements OnInit {
 
-  @Input() user: User;
+  @Input() user: any;
 
   constructor() { }
 

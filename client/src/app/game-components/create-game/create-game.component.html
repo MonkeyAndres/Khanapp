@@ -1,16 +1,16 @@
 <h2>Create New Game</h2>
 <form (ngSubmit)="createGame(createGameForm)" #createGameForm="ngForm">
   <mat-form-field class="full-width">
-    <input matInput placeholder="Title" name="title" [(ngModel)]="title" autocomplete="off" required>
+    <input matInput placeholder="Title" name="title" [(ngModel)]="newGame.title" autocomplete="off" required>
   </mat-form-field>
 
   <mat-form-field class="full-width">
-    <textarea matInput placeholder="Description" name="description" [(ngModel)]="description" cdkTextareaAutosize resizeToFitContent="true"
+    <textarea matInput placeholder="Description" name="description" [(ngModel)]="newGame.description" cdkTextareaAutosize resizeToFitContent="true"
       required></textarea>
   </mat-form-field>
 
   <mat-form-field class="full-width">
-    <mat-select placeholder="Topic" name="topic" [(ngModel)]="topic" required>
+    <mat-select placeholder="Topic" name="topic" [(ngModel)]="newGame.topic" required>
       <mat-option [value]="0">Any Category</mat-option>
       <mat-option [value]="9">General Knowledge</mat-option>
       <mat-option [value]="10">Entertainment: Books</mat-option>
@@ -40,7 +40,7 @@
   </mat-form-field>
 
   <mat-form-field class="full-width">
-    <mat-select placeholder="Difficulty" name="difficulty" [(ngModel)]="difficulty" required>
+    <mat-select placeholder="Difficulty" name="difficulty" [(ngModel)]="newGame.difficulty" required>
       <mat-option value="easy">Easy</mat-option>
       <mat-option value="medium">Medium</mat-option>
       <mat-option value="hard">Hard</mat-option>
@@ -48,11 +48,11 @@
   </mat-form-field>
 
   <mat-form-field class="full-width">
-    <input matInput placeholder="Number of Challenges" name="numberOfChallenges" [(ngModel)]="numberOfChallenges" required>
+    <input matInput placeholder="Number of Challenges" name="numberOfChallenges" [(ngModel)]="newGame.numberOfChallenges" required>
   </mat-form-field>
 
   <p id="time">Choose a date
-    <input type="datetime-local" name="date" [(ngModel)]="date" required class="full-width">
+    <input type="datetime-local" name="date" [(ngModel)]="newGame.date" required class="full-width">
   </p>
 
   <p class="margin">Draw a Game Area:</p>

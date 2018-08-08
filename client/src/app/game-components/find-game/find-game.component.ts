@@ -12,6 +12,7 @@ export class FindGameComponent implements OnInit, AfterContentInit {
   @ViewChild('search') searchElement: ElementRef;
   results: any;
   message: string;
+  query: string;
 
   constructor(
     private mapsAPILoader: MapsAPILoader,

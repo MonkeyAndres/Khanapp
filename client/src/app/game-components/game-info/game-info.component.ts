@@ -12,6 +12,7 @@ export class GameInfoComponent implements OnInit {
   gameTitle = 'Game Info';
   gameId: string;
   game: any;
+
   alreadyJoined: boolean;
   owner: boolean;
 
@@ -64,6 +65,9 @@ export class GameInfoComponent implements OnInit {
   }
 
   joinGame() {
-    console.log('join');
+    this.gameService.addPlayerToGame(this.auth.user._id, this.gameId)
+    .subscribe(data => {
+      this.router.navigate(['/profile']);
+    });
   }
 }

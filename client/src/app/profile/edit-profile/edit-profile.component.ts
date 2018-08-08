@@ -20,6 +20,7 @@ export class EditProfileComponent implements OnInit {
   username: string;
   bio: string;
   uploader: FileUploader = new FileUploader({url: URL, method: 'PUT'});
+  editedUser: any = {};
 
   constructor(public playerService: PlayerService, public snackBar: MatSnackBar) { }
 

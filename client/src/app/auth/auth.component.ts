@@ -12,6 +12,7 @@ export class AuthComponent implements OnInit {
   operation: string;
   inverseOperation: string;
   message: string;
+  newUser: any = {};
 
   constructor(public auth: AuthService, public router: Router) {}
 
