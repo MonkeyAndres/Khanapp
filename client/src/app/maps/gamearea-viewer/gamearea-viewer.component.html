@@ -1,11 +1,17 @@
 <agm-map [latitude]="middle.lat" [longitude]="middle.lng" [style.height]="mapHeight"
-    [streetViewControl]="false" [zoom]="14">
+    [streetViewControl]="false" [zoom]="mapZoom">
 
   <agm-polygon [paths]="coordinates" [strokeWeight]="3"></agm-polygon>
 
   <agm-marker *ngFor="let c of challenges" [latitude]="c.position.coordinates[1]" [longitude]="c.position.coordinates[0]" [iconUrl]="{url: 'https://image.flaticon.com/icons/png/512/32/32698.png', scaledSize: {height: 30, width: 30}}" [zIndex]="10">
-    <agm-info-window>{{c.challenge.category}}</agm-info-window>
+    <agm-info-window>
+      <h2 class="challengeTitle">{{c.challenge.category}}</h2>
+      <button mat-stroked-button color="accent" *ngIf="c.active">Try Challenge</button>
+      <p *ngIf="!c.active">You need to get closer.</p>
+    </agm-info-window>
   </agm-marker>  
+
+  <agm-circle *ngIf="userPosition" #agmCircle [latitude]="userPosition.lat" [longitude]="userPosition.lng" [radius]="radius" [fillColor]="'#3f51b5'"></agm-circle>
 
   <agm-marker *ngFor="let user of gameService.userPositions | keyvalue" [latitude]="user.value.lat" [longitude]="user.value.lng" [iconUrl]="{url: 'https://www.shareicon.net/download/2017/05/09/885769_user.ico', scaledSize: {height: 30, width: 30}}">
     <agm-info-window>{{user.key}}</agm-info-window>

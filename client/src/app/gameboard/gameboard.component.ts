@@ -1,23 +1,26 @@
+import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { LatLngLiteral } from '@agm/core';
-import { Component, OnInit } from '@angular/core';
-import * as moment from 'moment';
-import { GamesService } from '../services/games.service';
 import { ActivatedRoute } from '@angular/router';
+import { GamesService } from '../services/games.service';
+import { GameareaViewerComponent } from './../maps/gamearea-viewer/gamearea-viewer.component';
 import { SocketService } from '../services/socket.service';
+import * as io from 'socket.io-client';
 
 @Component({
   selector: 'app-gameboard',
   templateUrl: './gameboard.component.html',
   styleUrls: ['./gameboard.component.scss']
 })
-export class GameboardComponent implements OnInit, OnDestroy  {
-
+export class GameboardComponent implements OnInit, OnDestroy {
   gameId: string;
   game: any;
   mapHeight: string;
-  socket: any;
+  socket: SocketIOClient.Socket;
   challenges: any;
   tracker: any;
+  userCoords: LatLngLiteral;
+
+  @ViewChild(GameareaViewerComponent) mapViewer: GameareaViewerComponent;
 
   constructor(
     public gameService: GamesService,
@@ -47,6 +50,7 @@ export class GameboardComponent implements OnInit, OnDestroy  {
   addToUsersPosition(positions) {
     this.gameService.userPositions = positions;
     console.log(this.gameService.userPositions);
+    this.mapViewer.checkNearChallenges();
   }
 
   activatePositionTracker() {
@@ -69,6 +73,7 @@ export class GameboardComponent implements OnInit, OnDestroy  {
 
     const room = this.game.title;
 
+    this.userCoords = coords;
     console.log(`> User is at: `, coords);
     this.socket.emit('position', coords, room);
   }

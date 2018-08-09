@@ -26,63 +26,51 @@ const khanaServer = async () => {
     })
 
     io.on("connection", async (socket) => {
-        let userId;
-        let user;
-
         try{
-            userId = socket.request.session.passport.user;
-            user = await User.findById(userId);
+            const userId = socket.request.session.passport.user;
+            const user = await User.findById(userId);
+
+            socket.on('joinRoom', (room) => joinRoom(room, socket));
+            socket.on('joinGameboard', joinGameboard.bind(null, user.username, socket));
+            socket.on('position', sendPositionToRoom.bind(null, user.username));
         } catch (err) {
             console.log('Can\'t found the user.');
             return;
         }
-
-        // const games = await getGames(userId);
-
-        // for(let game of games){
-        //     await joinRoom(game.title, socket, user.username);
-        // }
-
-        socket.on('joinRoom', (room) => joinRoom(room, socket));
-        socket.on('joinGameboard', joinGameboard.bind(null, user.username, socket));
-        socket.on('position', sendPositionToRoom.bind(null, user.username));
     });
 };
 
 const joinRoom = async (room, socket) => {
-    await socket.join(room);
-    io.sockets.adapter.rooms[room].positions = {};
-    console.log(`> ${socket.id} joined ${room} Room.`);
+    try {
+        await socket.join(room);
+        io.sockets.adapter.rooms[room].positions = {};
+        console.log(`> ${socket.id} joined ${room} Room.`);
+    } catch (err) {
+        console.log('Can\'t join the room.');
+        return;
+    }
 }
 
-// const getGames = async (userId) => {
-//     const today = moment();
-//     const endDate = moment().add(1, 'week');
-
-//     const query = {
-//         players: userId,
-//         date: {
-//             "$gte": today.toDate(),
-//             "$lt": endDate.toDate()
-//         }
-//     }
-
-//     const game = await Game.find(query);
-//     return game;
-// }
-
 const joinGameboard = async (userId, socket, room) => {
-    await joinRoom(room, socket, userId);
-    console.log(`> ${userId} has joined the game ${room}.`);
+    try {
+        await joinRoom(room, socket, userId);
+        console.log(`> ${userId} has joined the game ${room}.`);
+    } catch (err) {
+        console.log('Can\'t join the game.');
+        return;
+    }
 }
 
 const sendPositionToRoom = (username, coords, room) => {
-    // console.log(io.sockets.adapter.rooms[room].positions);
-    const positions = io.sockets.adapter.rooms[room].positions;
-    positions[username] = coords;
+    try {
+        const positions = io.sockets.adapter.rooms[room].positions;
+        positions[username] = coords;
 
-    io.in(room).emit('usersPosition', positions);
-    console.log(`> ${room} positions \n`, positions);
+        io.in(room).emit('usersPosition', positions);
+        console.log(`> "${room}" Khana positions \n`, positions);
+    } catch (err) {
+        console.log('Cannot send the position to the rooms.');
+    }
 }
 
 module.exports = khanaServer;

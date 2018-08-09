@@ -1,6 +1,10 @@
-import { LatLngLiteral } from '@agm/core';
 import { Component, OnInit, Input } from '@angular/core';
+import { LatLngLiteral } from '@agm/core';
 import { GamesService } from '../../services/games.service';
+import { AuthService } from '../../services/auth.service';
+
+import genCircle from '@turf/circle';
+import booleanPointInPolygon from '@turf/boolean-point-in-polygon';
 
 @Component({
   selector: 'app-gamearea-viewer',
@@ -13,11 +17,17 @@ export class GameareaViewerComponent implements OnInit {
   @Input() gameAreaCoords;
   @Input() middlePoint;
   @Input() mapHeight = '270px';
+  @Input() mapZoom = 14;
 
   middle: any;
   coordinates: Array<LatLngLiteral>;
+  userPosition: LatLngLiteral;
+  radius = 50;
 
-  constructor(public gameService: GamesService) { }
+  constructor(
+    public gameService: GamesService,
+    public auth: AuthService
+  ) { }
 
   ngOnInit() {
     this.middle = this.toLatLngLiteral(this.middlePoint);
@@ -39,4 +49,20 @@ export class GameareaViewerComponent implements OnInit {
 
     return result;
   }
+
+  checkNearChallenges() {
+    const username = this.auth.user.username;
+    this.userPosition = this.gameService.userPositions[username];
+
+    const center = [this.userPosition.lng, this.userPosition.lat];
+    const options = {steps: 10, units: 'kilometers'};
+    const circle = genCircle(center, this.radius / 1000, options);
+
+    for (const challenge of this.challenges) {
+      const result = booleanPointInPolygon(challenge.position, circle);
+      challenge.active = result;
+    }
+  }
+
+
 }
