@@ -33,6 +33,7 @@ const khanaServer = async () => {
             socket.on('joinRoom', (room) => joinRoom(room, socket));
             socket.on('joinGameboard', joinGameboard.bind(null, user.username, socket));
             socket.on('position', sendPositionToRoom.bind(null, user.username));
+            socket.on('challengeCompleted', removeChallenge);
         } catch (err) {
             console.log('Can\'t found the user.');
             return;
@@ -71,6 +72,14 @@ const sendPositionToRoom = (username, coords, room) => {
     } catch (err) {
         console.log('Cannot send the position to the rooms.');
     }
+}
+
+const removeChallenge = async (game, challengeId) => {
+    const editedGame = await Game.findByIdAndUpdate(game._id, {$pull: {challenges: {challenge: challengeId}}}, {new: true});
+    const challenges = editedGame.challenges;
+    console.log(editedGame);
+
+    io.in(game.title).emit('updateChallenges', challenges);
 }
 
 module.exports = khanaServer;

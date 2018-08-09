@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { LatLngLiteral } from '@agm/core';
 import { GamesService } from '../../services/games.service';
 import { AuthService } from '../../services/auth.service';
@@ -19,10 +19,12 @@ export class GameareaViewerComponent implements OnInit {
   @Input() mapHeight = '270px';
   @Input() mapZoom = 14;
 
+  @Output() openChallengeDialog = new EventEmitter<any>();
+
   middle: any;
   coordinates: Array<LatLngLiteral>;
   userPosition: LatLngLiteral;
-  radius = 50;
+  radius = 20;
 
   constructor(
     public gameService: GamesService,
@@ -64,5 +66,5 @@ export class GameareaViewerComponent implements OnInit {
     }
   }
 
-
+  openChallenge(id) { this.openChallengeDialog.emit(id); }
 }

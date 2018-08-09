@@ -1,8 +1,10 @@
 import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { LatLngLiteral } from '@agm/core';
 import { ActivatedRoute } from '@angular/router';
+import { MatDialog } from '@angular/material';
 import { GamesService } from '../services/games.service';
 import { GameareaViewerComponent } from './../maps/gamearea-viewer/gamearea-viewer.component';
+import { ChallengeComponent } from './../challenge/challenge.component';
 import { SocketService } from '../services/socket.service';
 import * as io from 'socket.io-client';
 
@@ -20,12 +22,15 @@ export class GameboardComponent implements OnInit, OnDestroy {
   tracker: any;
   userCoords: LatLngLiteral;
 
+  challengeDialog: any;
+
   @ViewChild(GameareaViewerComponent) mapViewer: GameareaViewerComponent;
 
   constructor(
     public gameService: GamesService,
     public socketService: SocketService,
-    public route: ActivatedRoute
+    public route: ActivatedRoute,
+    public dialog: MatDialog
   ) { }
 
   ngOnInit() {
@@ -36,8 +41,9 @@ export class GameboardComponent implements OnInit, OnDestroy {
     this.route.params.subscribe(params => (this.gameId = params.id));
 
     this.activatePositionTracker();
-    // this.socket.on('getPositions', this.activatePositionTracker.bind(this));
+
     this.socket.on('usersPosition', this.addToUsersPosition.bind(this));
+    this.socket.on('updateChallenges', (challenges) => this.challenges = challenges);
 
     this.gameService.getOne(this.gameId)
     .subscribe(game => {
@@ -80,6 +86,23 @@ export class GameboardComponent implements OnInit, OnDestroy {
 
   errorTracker(err) {
     console.log(`Error: `, err);
+  }
+
+  openChallenge(challengeId) {
+    this.challengeDialog = this.dialog.open(ChallengeComponent, {
+      width: '90%',
+      data: {challengeId}
+    });
+
+    this.challengeDialog.afterClosed().subscribe(result => {
+      if (result) {
+        this.resolveChallenge(result);
+      }
+    });
+  }
+
+  resolveChallenge(challengeId) {
+    this.socket.emit('challengeCompleted', this.game, challengeId);
   }
 
   ngOnDestroy() {

@@ -23,6 +23,8 @@ import { FileUploadModule } from 'ng2-file-upload';
 import { FindGameComponent } from './game-components/find-game/find-game.component';
 import { MykhanasComponent } from './mykhanas/mykhanas.component';
 import { GameboardComponent } from './gameboard/gameboard.component';
+import { ChallengeComponent } from './challenge/challenge.component';
+import { ChallengeMultipleComponent } from './challenge/challenge-multiple/challenge-multiple.component';
 
 const MAPS_API_KEY = environment.MAPS_API_KEY;
 
@@ -42,6 +44,8 @@ const MAPS_API_KEY = environment.MAPS_API_KEY;
     FindGameComponent,
     MykhanasComponent,
     GameboardComponent,
+    ChallengeComponent,
+    ChallengeMultipleComponent,
   ],
   imports: [
     BrowserModule,

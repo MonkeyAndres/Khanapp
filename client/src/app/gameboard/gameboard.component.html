@@ -7,7 +7,7 @@
       Map
     </ng-template>
     
-    <app-gamearea-viewer [gameAreaCoords]="game.gameArea.coordinates" [middlePoint]="game.middlePos.coordinates" [mapHeight]="mapHeight" [challenges]="challenges" [mapZoom]="19"></app-gamearea-viewer>
+    <app-gamearea-viewer [gameAreaCoords]="game.gameArea.coordinates" [middlePoint]="game.middlePos.coordinates" [mapHeight]="mapHeight" [challenges]="challenges" [mapZoom]="19" (openChallengeDialog)="openChallenge($event)"></app-gamearea-viewer>
   </mat-tab>
 
   <mat-tab>

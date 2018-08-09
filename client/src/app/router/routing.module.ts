@@ -9,6 +9,7 @@ import { CanLogin, UserLogged } from './routing.guards';
 import { GameInfoComponent } from '../game-components/game-info/game-info.component';
 import { MykhanasComponent } from '../mykhanas/mykhanas.component';
 import { GameboardComponent } from '../gameboard/gameboard.component';
+import { ChallengeComponent } from './../challenge/challenge.component';
 
 const routes: Routes = [
   {path: '', redirectTo: 'profile', pathMatch: 'full'},
@@ -20,6 +21,7 @@ const routes: Routes = [
   {path: 'profile', component: ProfileComponent, canActivate: [UserLogged]},
   {path: 'khana/info/:id', component: GameInfoComponent, canActivate: [UserLogged]},
   {path: 'gameboard/:id', component: GameboardComponent, canActivate: [UserLogged]},
+  {path: 'challenge/:id', component: ChallengeComponent, canActivate: [UserLogged]},
 ];
 
 @NgModule({

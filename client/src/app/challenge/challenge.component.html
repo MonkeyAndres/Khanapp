@@ -1,0 +1,6 @@
+<mat-progress-bar mode="determinate" value="{{time}}" [color]="'accent'" *ngIf="challenge"></mat-progress-bar>
+
+<div *ngIf="challenge" id="card">
+  <h2>{{challenge.question}}</h2>
+  <app-challenge-multiple [challenge]="challenge" (finish)="finishChallenge($event)"></app-challenge-multiple>
+</div>
