@@ -33,4 +33,4 @@ const addChallenge = async (challenge) => {
     }
 }
 
-module.exports = {pickRandonChallenges}
+module.exports = pickRandonChallenges

@@ -17,7 +17,7 @@ export class SocketService {
     this.socket = io(BASEURL);
     this.socket.on('connect', () => console.log('Connected to Socket.io'));
 
-    this.socket.on('sendNotification', this.createNotification);
+    this.socket.on('sendNotification', this.createNotification.bind(this));
   }
 
   joinRoom(room) {
@@ -28,9 +28,7 @@ export class SocketService {
     Push.create(data.title, {
         body: data.body,
         timeout: 4000,
-        onClick: () => {
-          this.router.navigate([data.link]);
-        }
+        onClick: () => this.router.navigate([data.link])
     });
   }
 

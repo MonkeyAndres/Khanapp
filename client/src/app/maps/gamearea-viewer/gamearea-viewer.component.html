@@ -3,6 +3,10 @@
 
   <agm-polygon [paths]="coordinates" [strokeWeight]="3"></agm-polygon>
 
+  <agm-marker *ngFor="let c of challenges" [latitude]="c.position.coordinates[1]" [longitude]="c.position.coordinates[0]" [iconUrl]="{url: 'https://image.flaticon.com/icons/png/512/32/32698.png', scaledSize: {height: 30, width: 30}}" [zIndex]="10">
+    <agm-info-window>{{c.challenge.category}}</agm-info-window>
+  </agm-marker>  
+
   <agm-marker *ngFor="let user of gameService.userPositions | keyvalue" [latitude]="user.value.lat" [longitude]="user.value.lng" [iconUrl]="{url: 'https://www.shareicon.net/download/2017/05/09/885769_user.ico', scaledSize: {height: 30, width: 30}}">
     <agm-info-window>{{user.key}}</agm-info-window>
   </agm-marker>

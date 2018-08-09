@@ -4,7 +4,11 @@ const moment = require('moment');
 const schedule = require('node-schedule');
 
 const router = express.Router();
-const utils = require('./utils');
+
+const pickRandomChallenges = require('../utils/pickRandomChallenges');
+const randomPointsPolygon = require('../utils/randomPointsPolygon');
+const buildChallenges = require('../utils/buildChallenges');
+
 const sendNotification = require('../../socket.io/notifications');
 
 const Game = require('../../models/Game');
@@ -44,7 +48,9 @@ router.get('/played/:username', (req, res, next) => {
 })
 
 router.get('/:id', (req, res, next) => {
-    Game.findById(req.params.id).populate('players challenges')
+    Game.findById(req.params.id)
+    .populate('players')
+    .populate({path: 'challenges.challenge', populate: {path:'challenge'}})
     .then(games => res.status(200).json(games))
     .catch(err => next(err));
 })
@@ -61,7 +67,10 @@ router.post('/', async (req, res, next) => {
         gameArea 
     } = req.body;
 
-    const challenges = await utils.pickRandonChallenges(numberOfChallenges, topic, difficulty)
+    const randomChallenges = await pickRandomChallenges(numberOfChallenges, topic, difficulty);
+    const randomPoints = randomPointsPolygon(numberOfChallenges, gameArea);
+
+    const challenges = buildChallenges(randomChallenges, randomPoints);
 
     const newGame = new Game({
         title,

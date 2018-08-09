@@ -36,23 +36,23 @@ const gameSchema = new Schema({
         }
     },
     players: [ {type: Schema.Types.ObjectId, ref: "User"} ],
-    // challenges: [ 
-    //     {
-    //         challenge: {type: Schema.Types.ObjectId, ref: "Challenge"},
-    //         position: {
-    //             type: {
-    //                 type: String,
-    //                 enum: ['Point'], 
-    //                 required: true
-    //             },
-    //             coordinates: {
-    //                 type: [Number],
-    //                 required: true
-    //             }
-    //         }
-    //     }
-    // ],
-    challenges: [{type: Schema.Types.ObjectId, ref: "Challenge"}],
+    challenges: [
+        {
+            challenge: {type: Schema.Types.ObjectId, ref: "Challenge"},
+            position: {
+                type: {
+                    type: String,
+                    enum: ['Point'], 
+                    required: true
+                },
+                coordinates: {
+                    type: [Number],
+                    required: true
+                }
+            }
+        }
+    ],
+    // challenges: [{type: Schema.Types.ObjectId, ref: "Challenge"}],
     creator: {type: Schema.Types.ObjectId, ref: "Challenge"}
 })
 

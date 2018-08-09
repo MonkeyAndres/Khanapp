@@ -10,12 +10,14 @@ import { SocketService } from '../services/socket.service';
   templateUrl: './gameboard.component.html',
   styleUrls: ['./gameboard.component.scss']
 })
-export class GameboardComponent implements OnInit {
+export class GameboardComponent implements OnInit, OnDestroy  {
 
   gameId: string;
   game: any;
   mapHeight: string;
   socket: any;
+  challenges: any;
+  tracker: any;
 
   constructor(
     public gameService: GamesService,
@@ -30,12 +32,14 @@ export class GameboardComponent implements OnInit {
 
     this.route.params.subscribe(params => (this.gameId = params.id));
 
-    this.socket.on('getPositions', this.activatePositionTracker.bind(this));
+    this.activatePositionTracker();
+    // this.socket.on('getPositions', this.activatePositionTracker.bind(this));
     this.socket.on('usersPosition', this.addToUsersPosition.bind(this));
 
     this.gameService.getOne(this.gameId)
     .subscribe(game => {
       this.game = game;
+      this.challenges = this.game.challenges;
       this.socketService.joinGameboard(this.game.title);
     });
   }
@@ -50,11 +54,11 @@ export class GameboardComponent implements OnInit {
 
     const options = {
         enableHighAccuracy: true,
-        timeout: 5000,
+        timeout: 8000,
         maximumAge: 0
     };
 
-    navigator.geolocation.watchPosition(this.sendPositionToBack.bind(this), this.errorTracker, options);
+    this.tracker = navigator.geolocation.watchPosition(this.sendPositionToBack.bind(this), this.errorTracker, options);
   }
 
   sendPositionToBack(pos) {
@@ -71,5 +75,9 @@ export class GameboardComponent implements OnInit {
 
   errorTracker(err) {
     console.log(`Error: `, err);
+  }
+
+  ngOnDestroy() {
+    navigator.geolocation.clearWatch(this.tracker);
   }
 }

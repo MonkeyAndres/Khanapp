@@ -6,6 +6,9 @@
     "start": "node ./bin/www"
   },
   "dependencies": {
+    "@turf/bbox": "^6.0.1",
+    "@turf/helpers": "^6.1.4",
+    "@turf/random": "^6.0.2",
     "axios": "^0.18.0",
     "bcrypt": "^3.0.0",
     "cloudinary": "^1.11.0",
@@ -29,6 +32,7 @@
     "npm": "^6.3.0",
     "passport": "^0.4.0",
     "passport-local": "^1.0.0",
+    "random-points-on-polygon": "0.0.4",
     "socket.io": "^2.1.1"
   }
 }

@@ -73,7 +73,6 @@ const joinRoom = async (room, socket) => {
 
 const joinGameboard = async (userId, socket, room) => {
     await joinRoom(room, socket, userId);
-    io.in(room).emit('getPositions');
     console.log(`> ${userId} has joined the game ${room}.`);
 }
 

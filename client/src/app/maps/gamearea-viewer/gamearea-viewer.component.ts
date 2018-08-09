@@ -9,6 +9,7 @@ import { GamesService } from '../../services/games.service';
 })
 export class GameareaViewerComponent implements OnInit {
 
+  @Input() challenges;
   @Input() gameAreaCoords;
   @Input() middlePoint;
   @Input() mapHeight = '270px';

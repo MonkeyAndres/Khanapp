@@ -26,9 +26,9 @@
         </mat-expansion-panel-header>
 
         <mat-list>
-          <mat-list-item *ngFor="let challenge of game.challenges">
+          <mat-list-item *ngFor="let c of game.challenges">
             <mat-icon mat-list-icon>casino</mat-icon>
-            <h4 mat-line>{{challenge.category}}</h4>
+            <h4 mat-line>{{c.challenge.category}}</h4>
           </mat-list-item>
         </mat-list>
 
@@ -46,8 +46,8 @@
   </div>
 
   <div class="button-row">
-    <button mat-raised-button color="accent" *ngIf="!alreadyJoined" (click)="joinGame()">Join Game</button>
-    <button mat-raised-button color="accent" *ngIf="owner" (click)="deleteGame()">Delete Game</button>
+    <button mat-raised-button color="accent" *ngIf="!alreadyJoined && !game.status" (click)="joinGame()">Join Game</button>
     <button mat-raised-button color="accent" [routerLink]="['/gameboard', game._id]" *ngIf="game.status && alreadyJoined">GameBoard</button>
+    <button mat-raised-button color="accent" *ngIf="owner" (click)="deleteGame()">Delete Game</button>
   </div>
 </div>
