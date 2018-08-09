@@ -8,7 +8,7 @@ const userSchema = new Schema({
     password: String,
     email: {type: String, required: true, unique: true},
     bio: String,
-    profilePicture: String,
+    profilePicture: {type: String, default: 'https://res.cloudinary.com/khanapp/image/upload/v1533832152/ProfilePhotos/default.jpg'},
     createdGames: [ {type: Schema.Types.ObjectId, ref: "Game"} ],
     // location: {
     //     type: {

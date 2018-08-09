@@ -25,11 +25,14 @@ export class SocketService {
   }
 
   createNotification(data) {
-    Push.create(data.title, {
-        body: data.body,
-        timeout: 4000,
-        onClick: () => this.router.navigate([data.link])
-    });
+    if (Push.Permission.has()) {
+      Push.create(data.title, {
+          body: data.body,
+          onClick: () => this.router.navigate([data.link])
+      });
+    } else {
+      console.log('Can\'t send notification.');
+    }
   }
 
   joinGameboard(game) {

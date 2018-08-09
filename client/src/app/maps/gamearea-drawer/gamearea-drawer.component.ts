@@ -32,6 +32,7 @@ export class GameareaDrawerComponent implements OnInit {
           center: {lat, lng},
           streetViewControl: false,
           mapTypeControl: false,
+          gestureHandling: 'greedy',
           zoom: 12,
         });
 
