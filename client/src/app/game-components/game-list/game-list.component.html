@@ -1,7 +1,7 @@
 <h2>{{type}} Khanas</h2>
 
 <mat-nav-list>
-  <mat-list-item *ngFor="let game of games" [routerLink]="['/game', 'info', game._id]" >
+  <mat-list-item *ngFor="let game of games" [routerLink]="['/khana', 'info', game._id]" >
     <mat-icon mat-list-icon>videogame_asset</mat-icon>
     <h4 mat-line>{{game.title}}</h4>
     <p mat-line> {{game.date | date}} </p>

@@ -18,7 +18,7 @@ const routes: Routes = [
 
   {path: 'khanas', component: MykhanasComponent, canActivate: [UserLogged]},
   {path: 'profile', component: ProfileComponent, canActivate: [UserLogged]},
-  {path: 'game/info/:id', component: GameInfoComponent, canActivate: [UserLogged]},
+  {path: 'khana/info/:id', component: GameInfoComponent, canActivate: [UserLogged]},
   {path: 'gameboard/:id', component: GameboardComponent, canActivate: [UserLogged]},
 ];
 
