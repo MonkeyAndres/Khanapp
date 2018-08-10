@@ -56,13 +56,17 @@ export class GameareaViewerComponent implements OnInit {
     const username = this.auth.user.username;
     this.userPosition = this.gameService.userPositions[username];
 
-    const center = [this.userPosition.lng, this.userPosition.lat];
-    const options = {steps: 10, units: 'kilometers'};
-    const circle = genCircle(center, this.radius / 1000, options);
+    if (this.userPosition) {
+      const center = [this.userPosition.lng, this.userPosition.lat];
+      const options = {steps: 10, units: 'kilometers'};
+      const circle = genCircle(center, this.radius / 1000, options);
 
-    for (const challenge of this.challenges) {
-      const result = booleanPointInPolygon(challenge.position, circle);
-      challenge.active = result;
+      for (const challenge of this.challenges) {
+        const result = booleanPointInPolygon(challenge.position, circle);
+        challenge.active = result;
+      }
+    } else {
+      console.log('Theres no user.');
     }
   }
 

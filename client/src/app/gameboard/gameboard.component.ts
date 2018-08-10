@@ -38,18 +38,19 @@ export class GameboardComponent implements OnInit, OnDestroy {
 
     this.mapHeight = (window.screen.height - 48 - 28 - 60) + 'px';
 
-    this.route.params.subscribe(params => (this.gameId = params.id));
+    this.route.params.subscribe(params => {
+      this.gameId = params.id;
+      this.gameService.getOne(this.gameId)
+      .subscribe(game => {
+        this.game = game;
+        this.challenges = this.game.challenges;
+        this.socketService.joinGameboard(this.game.title);
 
-    this.activatePositionTracker();
+        this.activatePositionTracker();
 
-    this.socket.on('usersPosition', this.addToUsersPosition.bind(this));
-    this.socket.on('updateChallenges', (challenges) => this.challenges = challenges);
-
-    this.gameService.getOne(this.gameId)
-    .subscribe(game => {
-      this.game = game;
-      this.challenges = this.game.challenges;
-      this.socketService.joinGameboard(this.game.title);
+        this.socket.on('usersPosition', this.addToUsersPosition.bind(this));
+        this.socket.on('updateChallenges', (challenges) => this.challenges = challenges);
+      });
     });
   }
 
