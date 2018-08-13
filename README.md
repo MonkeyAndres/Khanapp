@@ -4,7 +4,7 @@ Khanapp it's a virtual gymkhana organizer made with the MEAN Stack. [TRY IT FOR 
 
 ## Table of contents
 
-- [What's Khanapp?](#what's-khanapp?)
+- [What's Khanapp?](#whats-khanapp)
 - [Installation](#installation)
 - [Usage](#usage)
 - [Cool Features](#cool-features)
