@@ -14,9 +14,11 @@ import { ChallengeComponent } from './../challenge/challenge.component';
 const routes: Routes = [
   {path: '', redirectTo: 'profile', pathMatch: 'full'},
 
+  // Only can access if the user isn't logged in
   {path: 'login', component: AuthComponent, canActivate: [CanLogin]},
   {path: 'signup', component: AuthComponent, canActivate: [CanLogin]},
 
+  // Only can access if the user is logged in
   {path: 'khanas', component: MykhanasComponent, canActivate: [UserLogged]},
   {path: 'profile', component: ProfileComponent, canActivate: [UserLogged]},
   {path: 'khana/info/:id', component: GameInfoComponent, canActivate: [UserLogged]},
@@ -31,6 +33,6 @@ const routes: Routes = [
   ],
   exports: [ RouterModule ],
   declarations: [],
-  providers: [ UserLogged, CanLogin ],
+  providers: [ UserLogged, CanLogin ], // Define route guards
 })
 export class RoutingModule { }

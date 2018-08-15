@@ -13,6 +13,7 @@ export class MykhanasComponent implements OnInit {
   constructor(public game: GamesService) { }
 
   ngOnInit() {
+    // Get the games that start in a week or less and show them
     this.game.getNext()
       .subscribe(data => (this.nextGames = data));
   }

@@ -24,32 +24,44 @@ export class AuthComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    // This converts /login in login and store it.
     this.operation = this.router.url.replace('/', '');
+
+    // This store the inverse operation.
     this.inverseOperation = this.operation === 'login' ? 'signup' : 'login';
 
+    // Change the message at the end of the page depending of the operation.
     if (this.operation === 'login') {
       this.message = 'You don\'t';
     } else { this.message = 'Already'; }
   }
 
+  // When the form is submited...
   onSubmit(form: NgForm) {
     if (this.operation === 'login') {
       this.auth.login(form.value).subscribe(() => {
-        // Add user to room (for notifications)
-        this.gameService.getNext()
-        .subscribe((data: Array<any>) => {
-          for (const game of data) {
-            this.socket.joinRoom(game.title);
-          }
-          // Redirect Profile
-          this.router.navigate(['/profile']);
-        });
+        this.joinNextKhanasRooms(); // When the user logged in...
       });
     } else {
       this.auth.signup(form.value).subscribe(() => this.router.navigate(['/profile']));
     }
   }
 
+  /**
+   * Search the next khanas that the user have.
+   * On each khana join the user to its khana socket.io room.
+   */
+  joinNextKhanasRooms() {
+    this.gameService.getNext()
+    .subscribe((data: Array<any>) => {
+      for (const game of data) {
+        this.socket.joinRoom(game.title);
+      }
+      this.router.navigate(['/profile']);
+    });
+  }
+
+  // When the user isn't register or is already register only navigate to the inverse operation route
   changeForm(event) {
     event.preventDefault();
     this.router.navigate([`/${this.inverseOperation}`]);

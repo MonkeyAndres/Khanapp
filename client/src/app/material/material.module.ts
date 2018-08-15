@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-// Material Stuff
+// All the material components that i use
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 import {MatToolbarModule} from '@angular/material/toolbar';
@@ -24,7 +24,7 @@ import {MatDividerModule} from '@angular/material/divider';
   imports: [
     CommonModule
   ],
-  exports: [
+  exports: [ // Export for use in the rest of the angular app
     MatFormFieldModule,
     MatInputModule,
     MatToolbarModule,
@@ -44,8 +44,8 @@ import {MatDividerModule} from '@angular/material/divider';
     MatDividerModule
   ],
   providers: [
-    {provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: {hasBackdrop: true}}
+    {provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: {hasBackdrop: true}} // (See mat-dialog for more)
   ],
   declarations: [],
 })
-export class MaterialModule { }
+export class MaterialModule { } // Export the module and import it in app.module.ts

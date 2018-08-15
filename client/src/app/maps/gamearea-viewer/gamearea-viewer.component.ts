@@ -36,6 +36,7 @@ export class GameareaViewerComponent implements OnInit {
     this.coordinates = this.toLatLngLiteral(this.gameAreaCoords);
   }
 
+  // Transform a GeoJSON into a LatLng, needs refactor.
   toLatLngLiteral(geoJson): any {
     const LNG = 0;
     const LAT = 1;
@@ -53,22 +54,26 @@ export class GameareaViewerComponent implements OnInit {
   }
 
   checkNearChallenges() {
-    const username = this.auth.user.username;
+    const username = this.auth.user.username; // Store username
+
+    // Search for the position of the user in gameService property
     this.userPosition = this.gameService.userPositions[username];
 
     if (this.userPosition) {
-      const center = [this.userPosition.lng, this.userPosition.lat];
-      const options = {steps: 10, units: 'kilometers'};
-      const circle = genCircle(center, this.radius / 1000, options);
+      const center = [this.userPosition.lng, this.userPosition.lat]; // Define the center of the circle.
+      const options = {steps: 10, units: 'kilometers'}; // Circle options (see turf/circle for more)
+      const circle = genCircle(center, this.radius / 1000, options); // Generate a polygon around the user.
 
+      // For each challenge check if the user is near to someone
       for (const challenge of this.challenges) {
-        const result = booleanPointInPolygon(challenge.position, circle);
-        challenge.active = result;
+        const result = booleanPointInPolygon(challenge.position, circle); // (See turf/booleanPointInPolygon)
+        challenge.active = result; // Activate the challenge or deactivate it
       }
     } else {
-      console.log('Theres no user.');
+      console.log('Theres no user.'); // For avoid errors
     }
   }
 
+  // Execute the openChallenge() in gameboard component
   openChallenge(id) { this.openChallengeDialog.emit(id); }
 }

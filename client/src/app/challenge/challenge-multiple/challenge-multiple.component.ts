@@ -15,15 +15,14 @@ export class ChallengeMultipleComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    // Create and answer array with the incorrect and correct answers
     this.answers = [...this.challenge.incorrect_answers, this.challenge.correct_answer];
-    this.answers = _.shuffle(this.answers);
+
+    this.answers = _.shuffle(this.answers); // Shuffle the array, thanks lodash :D
   }
 
+  // If selected answer === correct answer, emit the finish event with this comparasion result.
   checkAnswer(answer) {
-    if (answer === this.challenge.correct_answer) {
-      this.finish.emit(true);
-    } else {
-      this.finish.emit(false);
-    }
+    this.finish.emit(answer === this.challenge.correct_answer);
   }
 }

@@ -4,16 +4,20 @@ import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
 
+/**
+ * If you don't understand something see the rxjs docs
+*/
+
 // If user logged Allow Access, else go to login
 @Injectable()
 export class UserLogged implements CanActivate {
 
   constructor(public authService: AuthService, public router: Router) { }
 
-  canActivate(): Observable<boolean> {
+  canActivate(): Observable<boolean> { // This route guard returns an observable with boolean
     return this.authService.isLogged().pipe(
-      map(data =>  true),
-      catchError(err => {
+      map(data =>  true), // If exist the user = return true
+      catchError(err => { // Else go to profile and return false
         this.router.navigate(['/login']);
         return of(false);
       })
@@ -27,13 +31,13 @@ export class CanLogin implements CanActivate {
 
   constructor(public authService: AuthService, public router: Router) { }
 
-  canActivate(): Observable<boolean> {
+  canActivate(): Observable<boolean> { // This route guard returns an observable with boolean
     return this.authService.isLogged().pipe(
-      map(data => {
+      map(data => { // If user exist go to profile and return false
         this.router.navigate(['/profile']);
         return false;
       }),
-      catchError(err => of(true))
+      catchError(err => of(true)) // Else return true
     );
   }
 }

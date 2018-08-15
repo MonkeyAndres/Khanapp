@@ -1,7 +1,7 @@
 import { Component, ViewChild, OnInit } from '@angular/core';
 import { Element } from '@angular/compiler';
 import { MapsAPILoader } from '@agm/core';
-import {} from 'googlemaps';
+import {} from 'googlemaps'; // Ignore the error.
 
 @Component({
   selector: 'app-gamearea-drawer',
@@ -9,11 +9,13 @@ import {} from 'googlemaps';
   styleUrls: ['./gamearea-drawer.component.scss']
 })
 export class GameareaDrawerComponent implements OnInit {
-  @ViewChild('gmap') gmapElement: any;
+  @ViewChild('gmap') gmapElement: any; // Select the map container
 
-  map: google.maps.Map;
+  map: google.maps.Map; // Define a property map type Google Map
+
   completed = false;
   data: any;
+
   middle: any = {
     type: 'Point',
     coordinate: [],
@@ -22,12 +24,15 @@ export class GameareaDrawerComponent implements OnInit {
   constructor(private mapsAPILoader: MapsAPILoader) {}
 
   ngOnInit() {
-    this.mapsAPILoader.load()
+    this.mapsAPILoader.load() // Init the GoogleMapsApiLoader (see AGM docs for more)
     .then(() => {
+      // Get Current Position
       navigator.geolocation.getCurrentPosition((position) => {
+        // Store position in constants
         const lat = position.coords.latitude;
         const lng = position.coords.longitude;
 
+        // Initialize the map
         this.map = new google.maps.Map(this.gmapElement.nativeElement, {
           center: {lat, lng},
           streetViewControl: false,
@@ -36,6 +41,7 @@ export class GameareaDrawerComponent implements OnInit {
           zoom: 12,
         });
 
+        // Initiazile drawing tools google (google maps docs for more)
         const drawingManager = new google.maps.drawing.DrawingManager({
           drawingMode: google.maps.drawing.OverlayType.POLYGON,
           drawingControl: true,
@@ -43,20 +49,22 @@ export class GameareaDrawerComponent implements OnInit {
             drawingModes: [google.maps.drawing.OverlayType.POLYGON]
           }
         });
-        drawingManager.setMap(this.map);
+        drawingManager.setMap(this.map); // Put the drawing tools in the map
 
+        // When the polygon is completed...
         google.maps.event.addListener(drawingManager, 'polygoncomplete', this.polygonGetPaths.bind(this));
       });
     });
   }
 
+  // Converts from LatLng to GeoJSON
   pathsToGeoJson(polygonPaths) {
     const geoJson = {
       type: 'Polygon',
       coordinates: []
     };
 
-    polygonPaths.forEach((xy, i) => {
+    polygonPaths.forEach((xy) => {
       const lat = xy.lat();
       const lng = xy.lng();
 
@@ -66,14 +74,18 @@ export class GameareaDrawerComponent implements OnInit {
     return geoJson;
   }
 
+  // Extract the paths of the polygon and set the polygon to complete.
   polygonGetPaths(polygon) {
     const polygonPaths = polygon.getPaths().b[0].b;
     this.data = this.pathsToGeoJson(polygonPaths);
+
     const middleCoords = this.getMiddle(this.data.coordinates);
     this.middle.coordinates = middleCoords;
+
     this.completed = true;
   }
 
+  // Get Middle point of polygon, needs a refactor...
   getMiddle(coordinates) {
     const LNG = 0;
     const LAT = 1;

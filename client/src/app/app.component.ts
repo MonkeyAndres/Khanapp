@@ -12,7 +12,7 @@ export class AppComponent {
   title = 'app';
 
   constructor(public auth: AuthService, public socket: SocketService) {
-    Push.Permission.request(this.onGranted, this.onDenied);
+    Push.Permission.request(this.onGranted, this.onDenied); // Ask for pushJS notification permission
   }
 
   onGranted() {

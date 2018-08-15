@@ -9,13 +9,14 @@ import { Router } from '@angular/router';
 })
 export class NavbarComponent implements OnInit {
 
-  @Input() title;
+  @Input() title; // Dinamic title
 
   constructor(public auth: AuthService, public router: Router) { }
 
   ngOnInit() {
   }
 
+  // Log out action
   logout() {
     this.auth.logout().subscribe(() => {
       this.router.navigate(['/login']);

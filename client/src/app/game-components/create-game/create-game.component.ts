@@ -11,9 +11,10 @@ import { SocketService } from '../../services/socket.service';
   styleUrls: ['./create-game.component.scss']
 })
 export class CreateGameComponent implements OnInit {
+  @ViewChild(GameareaDrawerComponent) gameArea; // Select game area drawer child component
 
-  @ViewChild(GameareaDrawerComponent) gameArea;
-  @Output() done = new EventEmitter<void>();
+  @Output() done = new EventEmitter<void>(); // Output for refresh the profile (see profile component)
+
   message: string;
   newGame: any = {};
 
@@ -28,13 +29,15 @@ export class CreateGameComponent implements OnInit {
 
   createGame(form: NgForm) {
     if (this.gameArea.completed) {
+      // Add to the form values the game area data.
       form.value.gameArea = this.gameArea.data;
       form.value.middlePos = this.gameArea.middle;
 
+      // Create the game.
       this.game.create(form.value).subscribe(data => {
-        this.socket.joinRoom(form.value.title);
-        form.reset();
-        this.done.emit();
+        this.socket.joinRoom(form.value.title); // Join this game socket.io rooms.
+        form.reset(); // Reset the form.
+        this.done.emit(); // Update profile data.
       });
     }
   }

@@ -1,3 +1,7 @@
+/**
+ * Very usefull component that list all the games that you pass to it :D
+ */
+
 import { Component, OnInit, Input } from '@angular/core';
 
 @Component({

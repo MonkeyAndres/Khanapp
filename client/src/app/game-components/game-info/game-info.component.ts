@@ -24,11 +24,17 @@ export class GameInfoComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    // Get gameId from route params
     this.route.params.subscribe(params => {
       this.gameId = params.id;
+
+      // Get the rest of game data
       this.gameService.getOne(this.gameId)
         .subscribe(game => {
+          // I think that this doesn't need to be documented :)
           this.game = game;
+          this.gameTitle = this.game.title;
+
           this.alreadyJoined = this.checkIfJoined();
           this.owner = this.checkIfOwner();
         });
@@ -38,30 +44,25 @@ export class GameInfoComponent implements OnInit {
   checkIfJoined(): boolean {
     let result = false;
 
-    this.game.players.forEach(element => {
-      if (element.username === this.auth.user.username) {
+    for (const player of this.game.players) {
+      if (player.username === this.auth.user.username) {
         result = true;
+        break;
       }
-    });
-
-    return result;
-  }
-
-  checkIfOwner(): boolean {
-    let result = false;
-
-    if (this.game.creator === this.auth.user._id) {
-      result = true;
     }
 
     return result;
   }
 
+  checkIfOwner(): boolean {
+    return this.game.creator === this.auth.user._id;
+  }
+
   deleteGame() {
     this.gameService.delete(this.gameId)
-      .subscribe(data => {
-        this.router.navigate(['/profile']);
-      });
+    .subscribe(data => {
+      this.router.navigate(['/profile']);
+    });
   }
 
   joinGame() {
