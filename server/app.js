@@ -12,8 +12,6 @@ const passport = require('passport');
 const configure = require('./config/passport.js');
 const cors = require('cors');
 
-const khanaServer = require('./socket.io/khanaServer');
-
 const indexRouter = require('./routes/index');
 const apiRouter = require('./routes/api');
 
@@ -62,11 +60,8 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 // URLs
-app.use('/', indexRouter);
 app.use('/api', apiRouter);
-app.use((req, res, next) => {
-  res.sendFile(path.join(__dirname, 'public/index.html'));
-});
+app.use('/', indexRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

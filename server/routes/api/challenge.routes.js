@@ -1,16 +1,8 @@
 const express = require('express');
-const _ = require('lodash');
 const router = express.Router();
+const controller = require('../../controllers/challenge.controller');
 
-const Game = require('../../models/Game');
-const User = require('../../models/User');
-const Challenge = require('../../models/Challenge');
-
-router.get('/:id', (req, res, next) => {
-    Challenge.findById(req.params.id)
-    .then(challenges => res.status(200).json(challenges))
-    .catch(err => next(err));
-});
+router.get('/:id', controller.getChallenge);
 
 // router.post('/', (req, res, next) => {
 //     let { title, description, time, difficulty } = req.body;

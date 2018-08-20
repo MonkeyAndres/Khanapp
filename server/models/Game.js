@@ -1,8 +1,9 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const User = require('./User');
-const Challenge = require('./Challenge');
+/**
+ * If you don't understand some model see mongoose geoJSON docs
+ */
 
 const gameSchema = new Schema({
     title: {type: String, required: true, unique: true},
@@ -52,10 +53,9 @@ const gameSchema = new Schema({
             }
         }
     ],
-    // challenges: [{type: Schema.Types.ObjectId, ref: "Challenge"}],
     creator: {type: Schema.Types.ObjectId, ref: "Challenge"}
 })
 
-gameSchema.index({middlePos: '2dsphere'});
+gameSchema.index({middlePos: '2dsphere'}); // This line is for location based queries
 
 module.exports = mongoose.model('Game', gameSchema);

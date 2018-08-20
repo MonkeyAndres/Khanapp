@@ -10,6 +10,7 @@ cloudinary.config({
     api_secret: process.env.CLOUDINARY_SECRET_API_KEY,
 });
 
+// Create a more complex filename (actual timestamp + file original name)
 const createFilename = (file) => {
     console.log(file.originalname);
     return `${Date.now()}_${file.originalname}`;
