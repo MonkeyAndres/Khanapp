@@ -1,0 +1,14 @@
+<h2>Chat</h2>
+
+<div id="message-container">
+  <article *ngFor="let msg of messages">
+    <p><b>{{msg.sender}}</b> > {{msg.message}}</p>
+  </article>
+</div>
+
+<div id="send-form">
+  <mat-form-field class="full-width">
+    <input matInput placeholder="Message" [(ngModel)]="newMessage">
+  </mat-form-field>
+  <button mat-flat-button color="accent" (click)="sendMessage()">Send</button>
+</div>

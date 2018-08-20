@@ -25,6 +25,7 @@ import { MykhanasComponent } from './mykhanas/mykhanas.component';
 import { GameboardComponent } from './gameboard/gameboard.component';
 import { ChallengeComponent } from './challenge/challenge.component';
 import { ChallengeMultipleComponent } from './challenge/challenge-multiple/challenge-multiple.component';
+import { ChatComponent } from './gameboard/chat/chat.component';
 
 const MAPS_API_KEY = environment.MAPS_API_KEY;
 
@@ -46,6 +47,7 @@ const MAPS_API_KEY = environment.MAPS_API_KEY;
     GameboardComponent,
     ChallengeComponent,
     ChallengeMultipleComponent,
+    ChatComponent,
   ],
   imports: [
     BrowserModule,

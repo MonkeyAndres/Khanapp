@@ -1,0 +1,27 @@
+h2{
+    font-weight: 200
+}
+
+#message-container{
+    margin: 1em 0;
+
+    article{
+        margin: 0.5em 0;
+    }
+}
+
+#send-form{
+    position: fixed;
+    bottom: 0;
+    left: 1em;
+
+    width: calc(100% - 2em);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .full-width{
+        width: 100%;
+        margin-right: 1em;
+    }
+}
