@@ -27,34 +27,48 @@ export class GameareaDrawerComponent implements OnInit {
     this.mapsAPILoader.load() // Init the GoogleMapsApiLoader (see AGM docs for more)
     .then(() => {
       // Get Current Position
-      navigator.geolocation.getCurrentPosition((position) => {
-        // Store position in constants
-        const lat = position.coords.latitude;
-        const lng = position.coords.longitude;
-
-        // Initialize the map
-        this.map = new google.maps.Map(this.gmapElement.nativeElement, {
-          center: {lat, lng},
-          streetViewControl: false,
-          mapTypeControl: false,
-          gestureHandling: 'greedy',
-          zoom: 12,
-        });
-
-        // Initiazile drawing tools google (google maps docs for more)
-        const drawingManager = new google.maps.drawing.DrawingManager({
-          drawingMode: google.maps.drawing.OverlayType.POLYGON,
-          drawingControl: true,
-          drawingControlOptions: {
-            drawingModes: [google.maps.drawing.OverlayType.POLYGON]
-          }
-        });
-        drawingManager.setMap(this.map); // Put the drawing tools in the map
-
-        // When the polygon is completed...
-        google.maps.event.addListener(drawingManager, 'polygoncomplete', this.polygonGetPaths.bind(this));
-      });
+      navigator.geolocation.getCurrentPosition(
+        this.getPositionsFromEvent.bind(this), // Success callback
+        this.createDrawingTools.bind(this) // Error callback
+      );
     });
+  }
+
+  getPositionsFromEvent(position) {
+    // Store position in constants
+    const lat = position.coords.latitude;
+    const lng = position.coords.longitude;
+
+    this.createDrawingTools(lat, lng);
+  }
+
+  createDrawingTools(err, lat = 0, lng = 0) {
+
+    // Change the zoom if can't get current position
+    let zoom = 12;
+    if (err) { zoom = 2; }
+
+    // Initialize the map
+    this.map = new google.maps.Map(this.gmapElement.nativeElement, {
+      center: {lat, lng},
+      streetViewControl: false,
+      mapTypeControl: false,
+      gestureHandling: 'greedy',
+      zoom,
+    });
+
+    // Initiazile drawing tools google (google maps docs for more)
+    const drawingManager = new google.maps.drawing.DrawingManager({
+      drawingMode: google.maps.drawing.OverlayType.POLYGON,
+      drawingControl: true,
+      drawingControlOptions: {
+        drawingModes: [google.maps.drawing.OverlayType.POLYGON]
+      }
+    });
+    drawingManager.setMap(this.map); // Put the drawing tools in the map
+
+    // When the polygon is completed...
+    google.maps.event.addListener(drawingManager, 'polygoncomplete', this.polygonGetPaths.bind(this));
   }
 
   // Converts from LatLng to GeoJSON
