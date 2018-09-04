@@ -17,7 +17,7 @@
         <input matInput placeholder="Password" [(ngModel)]="newUser.password" name="password" type="password" required>
       </mat-form-field>
 
-      <span>{{message}} have an account? <a href="#" (click)="changeForm($event)">{{inverseOperation}}</a></span> <br><br>
+      <span>{{message}} have an account? <a href="#" (click)="changeForm($event)">{{inverseOperation}}</a></span> <br>
       <p class="error" *ngIf="errorMessage">{{errorMessage}}</p>
       <button mat-flat-button color="accent">{{operation}}</button>
     </form>
