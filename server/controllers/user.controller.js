@@ -54,7 +54,7 @@ module.exports = {
     
         // Update profile picture
         if (req.file) {
-            editedUser.profilePicture = req.file.url;
+            editedUser.profilePicture = req.file.secure_url;
         }
     
         // Edit user
