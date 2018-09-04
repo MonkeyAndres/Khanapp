@@ -8,14 +8,26 @@ const buildChallenges = require('./utils/buildChallenges');
 
 const sendNotification = require('../socket.io/notifications');
 
+const changeGameStatus = (gameId) => {
+    return Game.findByIdAndUpdate(gameId, {status: true})
+}
+
+const sheduleNotification = (game) => {
+    // CronJob makes notification and change game status
+    schedule.scheduleJob(game.date, () => {
+        changeGameStatus(game._id)
+        .then(game => {
+            console.log(`${game.title} Khana has started!`);
+            sendNotification(game);
+        })
+        .catch(err => next(err));
+    });
+}
+
 const Game = require('../models/Game');
 const User = require('../models/User');
 
 module.exports = {
-    changeGameStatus(gameId) {
-        return Game.findByIdAndUpdate(gameId, {status: true})
-    },
-
     getAllGames(req, res, next) {
         Game.find()
         .then(games => res.status(200).json(games))
@@ -51,17 +63,6 @@ module.exports = {
         .populate({path: 'challenges.challenge', populate: {path:'challenge'}})
         .then(games => res.status(200).json(games))
         .catch(err => next(err));
-    },
-
-    sheduleNotification(game){
-        // CronJob makes notification and change game status
-        schedule.scheduleJob(game.date, () => {
-            changeGameStatus(game._id)
-            .then(game => {
-                console.log(`${game.title} Khana has started!`);
-                sendNotification(game);
-            })
-        });
     },
 
     async saveGame(req, res, next) {

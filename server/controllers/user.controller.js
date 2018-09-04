@@ -20,7 +20,7 @@ module.exports = {
 
     saveUser(req, res, next) {
         const { username, password, email } = req.body;
-    
+
         const newUser = User({
             username,
             password: this.encrypt(password),
@@ -31,7 +31,11 @@ module.exports = {
         .then(user => {
             res.status(200).json(user);
         })
-        .catch(err => next(err));
+        .catch(err => {
+            if(err.code === 11000) {
+                next({message: 'User already exist.'})
+            } else {next(err)}
+        });
     },
 
     editUser(req, res, next) {

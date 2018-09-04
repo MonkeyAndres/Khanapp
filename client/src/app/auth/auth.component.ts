@@ -14,6 +14,7 @@ export class AuthComponent implements OnInit {
   operation: string;
   inverseOperation: string;
   message: string;
+  errorMessage: string;
   newUser: any = {};
 
   constructor(
@@ -39,11 +40,15 @@ export class AuthComponent implements OnInit {
   // When the form is submited...
   onSubmit(form: NgForm) {
     if (this.operation === 'login') {
-      this.auth.login(form.value).subscribe(() => {
-        this.joinNextKhanasRooms(); // When the user logged in...
-      });
+      this.auth.login(form.value).subscribe(
+        () => this.joinNextKhanasRooms(), // When the user logged in...
+        err => this.errorMessage = err.error.message,
+      );
     } else {
-      this.auth.signup(form.value).subscribe(() => this.router.navigate(['/profile']));
+      this.auth.signup(form.value).subscribe(
+        () => this.router.navigate(['/profile']),
+        err => this.errorMessage = err.error.message,
+      );
     }
   }
 
