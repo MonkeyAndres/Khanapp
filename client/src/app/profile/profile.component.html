@@ -20,7 +20,7 @@
     </mat-tab>
   </mat-tab-group>
 
-  <button id="fab" *ngIf="fabIcon">
+  <button id="fab" *ngIf="fabIcon" (click)="changeComponent()">
     <mat-icon (click)="changeComponent()">{{fabIcon}}</mat-icon>
   </button>
 </div>
