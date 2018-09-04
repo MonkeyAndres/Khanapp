@@ -11,11 +11,13 @@ const MongoStore = require('connect-mongo')(session);
 const passport = require('passport');
 const configure = require('./config/passport.js');
 const cors = require('cors');
+const sslRedirect = require('heroku-ssl-redirect');
 
 const indexRouter = require('./routes/index');
 const apiRouter = require('./routes/api');
 
 const app = express();
+app.use(sslRedirect());
 
 // Mongoose
 mongoose.connect(process.env.DBURL, {useNewUrlParser: true})
