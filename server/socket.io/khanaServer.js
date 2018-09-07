@@ -96,7 +96,7 @@ const removeChallenge = async (username, game, challengeId) => {
     const editedGame = await Game.findByIdAndUpdate(game._id, {$pull: {challenges: {challenge: challengeId}}}, {new: true});
     const challenges = editedGame.challenges;
     
-    chat.sendMessage('Server', `${username} has resolve a challenge!`, room);
+    chat.sendMessage('Server', `${username} has resolve a challenge!`, game.title);
     io.in(game.title).emit('updateChallenges', challenges);
 }
 
